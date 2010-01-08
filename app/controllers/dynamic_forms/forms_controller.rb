@@ -1,5 +1,6 @@
-class FormsController < ApplicationController
-
+class DynamicForms::FormsController < ApplicationController
+  unloadable
+  
   def index
     @forms = Form.paginate(:all, :page => params[:page] || 1)
   end

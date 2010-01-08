@@ -1,3 +1,4 @@
+=begin
 require 'fileutils'
 
 RAILS_ROOT = File.join(File.dirname(__FILE__), '..', '..', '..')
@@ -29,3 +30,4 @@ gsub_file File.join(RAILS_ROOT, 'config', 'routes.rb'), /(#{Regexp.escape(sentin
   end
 EOF
 end
+=end

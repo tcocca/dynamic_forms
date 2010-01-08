@@ -1,1 +1,6 @@
-# Nothing to do here, install.rb does all the work
+require 'dynamic_forms'
+
+config.to_prepare do
+  ApplicationController.helper(DynamicForms::CheckBoxGroupHelper)
+  ApplicationController.helper(DynamicForms::FormSubmissionsHelper)
+end

@@ -1,3 +1,4 @@
+=begin
 require 'fileutils'
 
 namespace :dynamic_forms do
@@ -31,3 +32,4 @@ EOF
     
   end
 end
+=end
