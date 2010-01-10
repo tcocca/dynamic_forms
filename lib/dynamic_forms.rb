@@ -1,1 +1,1 @@
-require 'dynamic_forms/routes'
+require 'dynamic_forms/extensions/routes'
