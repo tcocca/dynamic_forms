@@ -1,7 +1,7 @@
 # Models a TextArea
 module DynamicForms
   module Models
-    module FormField
+    module FieldTypes
       module TextArea
         
         def self.included(model)

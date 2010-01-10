@@ -13,7 +13,8 @@ module DynamicForms
       module Relationships
         def self.included(model)
           model.class_eval do
-            belongs_to :form_field
+            belongs_to :form_field, 
+                       :class_name => "::FormField"
           end
         end
       end

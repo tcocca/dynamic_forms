@@ -1,3 +1,3 @@
-class FormField::Select < ActiveRecord::Base
-  include DynamicForms::Models::FormField::Select
+class FormField::Select < FormField
+  include DynamicForms::Models::FieldTypes::Select
 end

@@ -23,8 +23,11 @@ module DynamicForms
       module Relationships
         def self.included(model)
           model.class_eval do
-            belongs_to :form
-            has_many :form_field_options, :order => 'position ASC, label ASC'
+            belongs_to :form,
+                       :class_name => "::Form"
+            has_many :form_field_options, 
+                     :class_name => "::FormFieldOption",
+                     :order => 'position ASC, label ASC'
           end
         end
       end

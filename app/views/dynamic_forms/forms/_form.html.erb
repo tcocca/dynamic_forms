@@ -51,10 +51,10 @@
         <div id="add_fields" style="height: 100%;">
           <h4 class="header">Add Another Field...</h4>
           <ul id="add_field_links">
-          <% FormField::TYPES.each do |field_type| %>
+          <% ::FormField::TYPES.each do |field_type| %>
             <li>
               <%= link_to_function "Add a #{field_type.titleize}" do |page|
-                  page.insert_html :bottom, 'form_fields', :partial => "forms/form_field", :object => @form.send(field_type.pluralize.to_sym).build, :locals => {:f => f, :counter => ''}
+                  page.insert_html :bottom, 'form_fields', :partial => "form_field", :object => @form.send(field_type.pluralize.to_sym).build, :locals => {:f => f, :counter => ''}
                   page << "$('form_fields').down('.field', parseInt($('fields_count').value)).select('input').each(function(inp){inp.name = inp.name.split('[]').join('[' + parseInt($('fields_count').value) + ']')})"
                   page << "$('form_fields').down('.field', parseInt($('fields_count').value)).select('textarea').each(function(inp){inp.name = inp.name.split('[]').join('[' + parseInt($('fields_count').value) + ']')})"
                   page << "$('form_fields').down('.field', parseInt($('fields_count').value)).down('.position').value = parseInt($('fields_count').value) + 1;"

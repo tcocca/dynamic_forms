@@ -1,3 +1,3 @@
-class FormField::TextField < ActiveRecord::Base
-  include DynamicForms::Models::FormField::TextField
+class FormField::TextField < FormField
+  include DynamicForms::Models::FieldTypes::TextField
 end

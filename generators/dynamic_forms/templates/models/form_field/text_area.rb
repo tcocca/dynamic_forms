@@ -1,3 +1,3 @@
-class FormField::TextArea < ActiveRecord::Base
-  include DynamicForms::Models::FormField::TextArea
+class FormField::TextArea < FormField
+  include DynamicForms::Models::FieldTypes::TextArea
 end

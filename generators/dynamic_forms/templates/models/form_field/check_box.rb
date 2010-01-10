@@ -1,3 +1,3 @@
-class FormField::CheckBox < ActiveRecord::Base
-  include DynamicForms::Models::FormField::CheckBox
+class FormField::CheckBox < FormField
+  include DynamicForms::Models::FieldTypes::CheckBox
 end

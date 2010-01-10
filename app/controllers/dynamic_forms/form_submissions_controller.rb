@@ -28,6 +28,6 @@ class DynamicForms::FormSubmissionsController < ApplicationController
   private
   
   def load_form
-    @form = Form.find(params[:form_id])
+    @form = ::Form.find(params[:form_id])
   end
 end

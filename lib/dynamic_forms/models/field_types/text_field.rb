@@ -1,13 +1,17 @@
-# Models a form check_box
+# Models a TextField
 module DynamicForms
   module Models
-    module FormField
-      module CheckBox
+    module FieldTypes
+      module TextField
         
         def self.included(model)
           model.extend(ClassMethods)
           
           model.send(:include, InstanceMethods)
+          
+          model.class_eval do
+            allow_validation_of :required, :number, :min_length, :max_length
+          end
         end
         
         module InstanceMethods

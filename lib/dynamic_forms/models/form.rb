@@ -14,10 +14,10 @@ module DynamicForms
         model.send(:include, Relationships)
         
         model.class_eval do
-          FormField::TYPES.each do |field_type|
+          ::FormField::TYPES.each do |field_type|
             # create has_many for each field type
             has_many field_type.pluralize.to_sym, 
-                     :class_name => "FormField::#{field_type.camelize}"
+                     :class_name => "::FormField::#{field_type.camelize}"
             
             # create setter to receive form data for these type of fields
             define_method "#{field_type}=" do |fields|
@@ -60,9 +60,11 @@ module DynamicForms
           model.class_eval do
             has_many :form_fields, 
                      :order => 'position ASC', 
-                     :dependent => :destroy
+                     :dependent => :destroy, 
+                     :class_name => "::FormField"
             has_many :form_submissions, 
                      :order => 'created_at DESC', 
+                      :class_name => "::FormSubmission", 
                      :dependent => :destroy do
               
               # Takes the pain out of creating a form submission object!
@@ -100,7 +102,7 @@ module DynamicForms
         def form_fields_with_pre_save_accessibility
           orig = self.form_fields_without_pre_save_accessibility
           if orig.blank?
-            method_names = FormField::TYPES.collect { |t| t.pluralize.to_sym }
+            method_names = ::FormField::TYPES.collect { |t| t.pluralize.to_sym }
             arr = method_names.inject([]) { |arr, method_name| 
               arr.concat self.send(method_name) }
             arr.sort { |a,b| a.position <=> b.position }

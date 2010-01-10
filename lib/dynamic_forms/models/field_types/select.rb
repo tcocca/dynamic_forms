@@ -1,7 +1,7 @@
 # Models a select drop-down input
 module DynamicForms
   module Models
-    module FormField
+    module FieldTypes
       module Select
         
         def self.included(model)
