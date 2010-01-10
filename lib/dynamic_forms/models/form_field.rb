@@ -3,19 +3,23 @@
 module DynamicForms
   module Models
     module FormField
-
+      
+      TYPES = %w{text_field text_area select check_box check_box_group}
+      VALIDATION_TYPES = %w{required number max_length min_length}
+      
       def self.included(model)
         model.extend(ClassMethods)
-
+        
         model.send(:include, InstanceMethods)
         model.send(:include, Relationships)
         model.send(:include, Callbacks)
         model.send(:include, Validations)
         
-        TYPES = %w{text_field text_area select check_box check_box_group}
-        VALIDATION_TYPES = %w{required number max_length min_length}
+        model.class_eval do
+          alias_method_chain :name, :default
+        end
       end
-
+      
       module Relationships
         def self.included(model)
           model.class_eval do
@@ -40,7 +44,7 @@ module DynamicForms
           end
         end
       end
-
+      
       module InstanceMethods
         def validate_submission(submission)
           val = submission.send(name)
@@ -51,11 +55,11 @@ module DynamicForms
             end
           end
         end
-
+        
         def kind
           self.class.to_s.split("::").last.underscore
         end
-
+        
         # overridden by has_many_responses
         def has_many_responses?
           false
@@ -79,11 +83,11 @@ module DynamicForms
           arr = str.split(',')
           arr.each_with_index {|l, i| self.form_field_options.build(:label => l.strip, :value => l.strip, :position => i)}
         end
-
+        
         def name
           self[:name]
         end
-
+        
         def name_with_default
           orig = name_without_default
           if orig.blank?
@@ -93,19 +97,18 @@ module DynamicForms
             orig
           end
         end
-        alias_method_chain :name, :default
-
+        
         #overwritten by self.allow_validation_of
         def allow_validation_of?(sym)
           false
         end
         
         private
-
+        
         def assign_name
           self.name = "field_" + Digest::SHA1.hexdigest(self.label + Time.now.to_s).first(20)
         end
-
+        
         def error_for_value(val, validation)
           case validation
             when "required" 
@@ -118,12 +121,12 @@ module DynamicForms
               " must be a number." if self.number? && !is_number(val) && !val.blank?
           end
         end
-
+        
         def is_number(val)
           !(val =~ /^[+-]?[\d,]+[\.]?[\d]*$/).nil?
         end
       end
-
+      
       module ClassMethods
         # indicates that the value of this field is an array of responses
         def has_many_responses
@@ -141,7 +144,7 @@ module DynamicForms
           end
         end
       end
-
+      
     end
   end
 end
