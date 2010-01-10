@@ -17,9 +17,5 @@ namespace :dynamic_forms do
     templates_path = File.join(File.dirname(__FILE__), '..', 'generators', 'dynamic_forms', 'templates', 'models')
     app_path = File.join(RAILS_ROOT, 'app', 'models')
     remove_files(templates_path, app_path)
-    
-    templates_path = File.join(File.dirname(__FILE__), '..', 'generators', 'dynamic_forms', 'templates', 'models', 'form_field')
-    app_path = File.join(RAILS_ROOT, 'app', 'models', 'form_field')
-    remove_files(templates_path, app_path)
   end
 end
