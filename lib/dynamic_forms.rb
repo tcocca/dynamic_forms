@@ -1,1 +1,11 @@
 require 'dynamic_forms/extensions/routes'
+
+require 'dynamic_forms/models/form'
+require 'dynamic_forms/models/form_field'
+require 'dynamic_forms/models/form_field_option'
+require 'dynamic_forms/models/form_submission'
+require 'dynamic_forms/models/form_field/check_box'
+require 'dynamic_forms/models/form_field/check_box_group'
+require 'dynamic_forms/models/form_field/select'
+require 'dynamic_forms/models/form_field/text_area'
+require 'dynamic_forms/models/form_field/text_field'
