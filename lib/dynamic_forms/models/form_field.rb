@@ -25,6 +25,7 @@ module DynamicForms
           model.class_eval do
             belongs_to :form,
                        :class_name => "::Form"
+            
             has_many :form_field_options, 
                      :class_name => "::FormFieldOption",
                      :order => 'position ASC, label ASC'
