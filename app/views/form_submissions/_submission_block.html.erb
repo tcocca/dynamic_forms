@@ -1,15 +1,13 @@
-<% form ||= @form %>
-<% form_submission ||= @form_submission %>
-<% url ||= form_form_submissions_path(form) %>
+<% url ||= form_submissions_path(@form) %>
 
-<h2><%= form.name %></h2>
+<h2><%= @form.name %></h2>
 
-<% form_for :form_submission, form_submission, :url => url, :html => {:class => 'form_submission_form'} do |f| %>
-  <% unless form.instructions.blank? %>
-    <p><%= form.instructions %></p>
+<% form_for :form_submission, @form_submission, :url => url, :html => {:class => 'form_submission_form'} do |f| %>
+  <% unless @form.instructions.blank? %>
+    <p><%= @form.instructions %></p>
   <% end %>
   <%= f.form_submission_error_messages %>
-  <% form.form_fields.each do |field| %>
+  <% @form.form_fields.each do |field| %>
     <% options = {}
       select_options = nil
       options[:size] = (!field.max_length.blank? && field.max_length < 50) ? field.max_length : 50
@@ -21,7 +19,7 @@
       end %>
     <% if field.kind == 'check_box_group' 
         select_options = options
-        select_options[:source] = form_submission.send(field.name)
+        select_options[:source] = @form_submission.send(field.name)
         options = field.check_box_group_collection
       end %>
     <div>
@@ -34,6 +32,6 @@
     </div>
   <% end %>
   <div>
-    <%= f.submit form.submit_label %>
+    <%= f.submit @form.submit_label %>
   </div>
 <% end %>

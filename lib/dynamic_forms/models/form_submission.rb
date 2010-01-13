@@ -21,7 +21,7 @@ module DynamicForms
           model.class_eval do
             belongs_to :form, 
                        :class_name => "::Form"
-            has_one :showing
+            
             has_many :form_fields,
                      :class_name => "::FormField", 
                      :through => :form

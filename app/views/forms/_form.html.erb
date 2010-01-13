@@ -25,7 +25,7 @@
       <div class="column" id="left_column">
         <p>Add fields using the links on the right and drag boxes to reorder.</p>
         <div id="form_fields">
-          <%= render :partial => "forms/form_field", :collection => @form.form_fields, :locals => {:f => f} %>
+          <%= render :partial => "form_field", :collection => @form.form_fields, :locals => {:f => f} %>
         </div>
       </div>
 
