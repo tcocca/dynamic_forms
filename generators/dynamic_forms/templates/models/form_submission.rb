@@ -1,3 +1,3 @@
 class FormSubmission < ActiveRecord::Base
-  include DynamicForms::Models::Form
+  include DynamicForms::Models::FormSubmission
 end
