@@ -1,8 +1,6 @@
-<% url ||= form_submissions_path(@form) %>
-
 <h2><%= @form.name %></h2>
 
-<% form_for :form_submission, @form_submission, :url => url, :html => {:class => 'form_submission_form'} do |f| %>
+<% form_for :form_submission, @form_submission, :url => form_form_submissions_path(:form_id => @form.id), :html => {:method => :post, :class => 'form_submission_form'} do |f| %>
   <% unless @form.instructions.blank? %>
     <p><%= @form.instructions %></p>
   <% end %>

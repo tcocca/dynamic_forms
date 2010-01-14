@@ -3,6 +3,7 @@ class DynamicForms::FormsController < ApplicationController
   
   def index
     @forms = ::Form.paginate(:all, :page => params[:page] || 1)
+    render :template => "forms/index"
   end
   
   # the Forms#show action actually renders FormSubmissions#new for displaying the form
@@ -14,10 +15,12 @@ class DynamicForms::FormsController < ApplicationController
   
   def new
     @form = ::Form.new(:submit_label => 'Submit')
+    render :template => "forms/new"
   end
   
   def edit
     @form = ::Form.find(params[:id])
+    render :template => "forms/edit"
   end
   
   def create
@@ -29,7 +32,7 @@ class DynamicForms::FormsController < ApplicationController
       flash[:notice] = %Q{The form "#{@form.name}" was successfully create.}
       redirect_to form_path(@form)
     else
-      render :action => 'new'
+      render :action => 'new', :template => "forms/new"
     end
   end
   
@@ -43,7 +46,7 @@ class DynamicForms::FormsController < ApplicationController
       flash[:notice] = %Q{The form "#{@form.name}" was successfully updated.}
       redirect_to form_path(@form)
     else
-      render :action => 'edit'
+      render :action => 'edit', :template => "forms/edit"
     end
   end
   
@@ -62,7 +65,7 @@ class DynamicForms::FormsController < ApplicationController
       @form_submission = @form.form_submissions.build
       @form_submission.form = @form # Believe it or not, this is necessary
     end
-    render :action => 'new'
+    render :action => 'new', :template => "forms/new"
   end
   
   def preview_edit
@@ -72,6 +75,7 @@ class DynamicForms::FormsController < ApplicationController
       @form_submission = @form.form_submissions.build
       @form_submission.form = @form # Believe it or not, this is necessary
     end
-    render :action => 'edit'
+    render :action => 'edit', :template => "forms/edit"
   end
+  
 end

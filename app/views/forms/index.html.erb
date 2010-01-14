@@ -24,7 +24,7 @@
       <td class="actions">
         <%= link_to "Show", form_path(form) %>
         <%= link_to "Edit", edit_form_path(form) %>
-        <%= link_to "View Submissions", form_form_submissions_path(:form_id => form) %>
+        <%= link_to "View Submissions", form_form_submissions_path(:form_id => form.id) %>
         <%= link_to "Delete", form_path(form), :method => :delete, :confirm => "Are you sure you want to delete '#{form.name}'?" %>
       </td>
     </tr>

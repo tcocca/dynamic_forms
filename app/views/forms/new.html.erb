@@ -7,7 +7,7 @@
 
 <% form_for :form, @form, :url => forms_path, :html => {:id => "form_creator"} do |f| %>
   <fieldset id="form">
-    <%= render :partial => 'form', :object => f %>
+    <%= render :partial => 'forms/form', :object => f %>
     <div class="form_item submit">
       <%= f.submit "Preview", :value => 'Preview' %> or 
       <%= f.submit "Create Form" %>

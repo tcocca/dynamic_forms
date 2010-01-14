@@ -5,14 +5,17 @@ class DynamicForms::FormSubmissionsController < ApplicationController
   
   def index
     @form_submissions = @form.form_submissions
+    render :template => "form_submissions/index"
   end
   
   def show
     @form_submission = @form.form_submissions.find(params[:id])
+    render :template => "form_submissions/show"
   end
   
   def new
     @form_submission = @form.form_submissions.build
+    render :template => "form_submissions/new"
   end
   
   def create
@@ -21,7 +24,7 @@ class DynamicForms::FormSubmissionsController < ApplicationController
       flash[:notice] = "Thank you for filling out this form!"
       redirect_to form_form_submission_path(@form, @form_submission)
     else
-      render :action => 'new'
+      render :action => 'new', :template => "form_submissions/new"
     end
   end
   
@@ -30,4 +33,5 @@ class DynamicForms::FormSubmissionsController < ApplicationController
   def load_form
     @form = ::Form.find(params[:form_id])
   end
+  
 end
