@@ -58,15 +58,17 @@ module DynamicForms
       module Relationships
         def self.included(model)
           model.class_eval do
+            belongs_to :formable, :polymorphic => true
+            
             has_many :form_fields, 
                      :order => 'position ASC', 
                      :dependent => :destroy, 
                      :class_name => "::FormField"
+            
             has_many :form_submissions, 
                      :order => 'created_at DESC', 
                       :class_name => "::FormSubmission", 
-                     :dependent => :destroy do
-              
+                     :dependent => :destroy do  
               # Takes the pain out of creating a form submission object!
               # @submission = form.form_submissions.submit(params[:form_submission])
               # --
@@ -90,8 +92,6 @@ module DynamicForms
               end
               
             end
-            
-            belongs_to :formable, :polymorphic => true
           end
         end
       end

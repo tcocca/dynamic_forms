@@ -49,7 +49,6 @@ class CreateDynamicForms < ActiveRecord::Migration
       t.column "updated_at", :datetime
       t.column "instructions", :text
       t.column "active", :boolean, :default => true
-      t.column "type", :string
     end
     
     add_index :forms, ["formable_type", "formable_id"], :name => "index_forms_on_formable_type_and_formable_id"
