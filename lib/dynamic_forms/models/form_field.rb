@@ -14,9 +14,11 @@ module DynamicForms
         model.send(:include, Relationships)
         model.send(:include, Callbacks)
         model.send(:include, Validations)
+        model.send(:include, DynamicForms::Extensions::DynamicValidations)
         
         model.class_eval do
           alias_method_chain :name, :default
+          attr_accessor :answer, :submission
         end
       end
       
@@ -50,13 +52,11 @@ module DynamicForms
       end
       
       module InstanceMethods
-        def validate_submission(submission)
-          val = submission.send(name)
+        def validate_submission(form_submission)
+          self.submission = form_submission
+          self.answer = submission.send(name)
           VALIDATION_TYPES.each do |validation|
-            if msg = error_for_value(val, validation)
-              puts "Adding error #{msg} on #{name}"
-              submission.errors.add(name, msg)
-            end
+            self.send("validate_#{validation}".to_sym)
           end
         end
         
@@ -113,22 +113,6 @@ module DynamicForms
           self.name = "field_" + Digest::SHA1.hexdigest(self.label + Time.now.to_s).first(20)
         end
         
-        def error_for_value(val, validation)
-          case validation
-            when "required" 
-              " cannot be blank." if self.required? && val.blank?
-            when "max_length"
-              " must be less than #{self.max_length} characters long." if !self.max_length.blank? && val.to_s.length > self.max_length && !val.blank?
-            when "min_length"
-              " must be greater than #{self.min_length} characters long." if !self.min_length.blank? && val.to_s.length < self.min_length
-            when "number"
-              " must be a number." if self.number? && !is_number(val) && !val.blank?
-          end
-        end
-        
-        def is_number(val)
-          !(val =~ /^[+-]?[\d,]+[\.]?[\d]*$/).nil?
-        end
       end
       
       module ClassMethods
