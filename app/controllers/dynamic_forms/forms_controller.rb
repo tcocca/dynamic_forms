@@ -53,7 +53,7 @@ class DynamicForms::FormsController < ApplicationController
   def destroy
     form = ::Form.find(params[:id])
     form.destroy
-    flash[:notice] = %Q{The form "#{@form.name}" was deleted.}
+    flash[:notice] = %Q{The form "#{form.name}" was deleted.}
     redirect_to forms_path
   end
   

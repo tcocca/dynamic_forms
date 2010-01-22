@@ -1,4 +1,5 @@
 require 'dynamic_forms/extensions/routes'
+require 'dynamic_forms/extensions/dynamic_validations'
 
 require 'dynamic_forms/models/form'
 require 'dynamic_forms/models/form_field'

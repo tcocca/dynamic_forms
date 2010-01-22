@@ -5,7 +5,7 @@ module DynamicForms
     module FormField
       
       TYPES = %w{text_field text_area select check_box check_box_group}
-      VALIDATION_TYPES = %w{required number max_length min_length}
+      VALIDATION_TYPES = %w{required? number? max_length min_length zip_code? email? phone_number? url?}
       
       def self.included(model)
         model.extend(ClassMethods)
@@ -17,7 +17,10 @@ module DynamicForms
         model.send(:include, DynamicForms::Extensions::DynamicValidations)
         
         model.class_eval do
-          alias_method_chain :name, :default
+          serialize :validations, Hash
+          
+          eval "serialized_validation_attr_accessor #{VALIDATION_TYPES.collect{|t| ":#{t}"}.join(', ')}"
+          
           attr_accessor :answer, :submission
         end
       end
@@ -56,7 +59,7 @@ module DynamicForms
           self.submission = form_submission
           self.answer = submission.send(name)
           VALIDATION_TYPES.each do |validation|
-            self.send("validate_#{validation}".to_sym)
+            self.send("validate_#{validation.gsub('?', '')}".to_sym)
           end
         end
         
@@ -88,20 +91,6 @@ module DynamicForms
           arr.each_with_index {|l, i| self.form_field_options.build(:label => l.strip, :value => l.strip, :position => i)}
         end
         
-        def name
-          self[:name]
-        end
-        
-        def name_with_default
-          orig = name_without_default
-          if orig.blank?
-            assign_name
-            name_without_default
-          else
-            orig
-          end
-        end
-        
         #overwritten by self.allow_validation_of
         def allow_validation_of?(sym)
           false
@@ -110,7 +99,7 @@ module DynamicForms
         private
         
         def assign_name
-          self.name = "field_" + Digest::SHA1.hexdigest(self.label + Time.now.to_s).first(20)
+          self.name = "field_" + Digest::SHA1.hexdigest(self.label + Time.now.to_s).first(20) if self.name.blank?
         end
         
       end
@@ -129,6 +118,34 @@ module DynamicForms
         def allow_validation_of(*syms)
           define_method 'allow_validation_of?' do |sym|
             syms.include? sym
+          end
+        end
+        
+        def serialized_validation_attr_accessor(*args)
+          args.each do |method_name|
+            method_declaration = <<-METHOD
+              def #{method_name.to_s.gsub('?', '')}
+                validations[:#{method_name.to_s.gsub('?', '')}] if self.validations
+              end
+              def #{method_name.to_s.gsub('?', '')}=(value)
+                self.validations = {} unless self.validations
+                self.validations[:#{method_name.to_s.gsub('?', '')}] = value
+              end
+            METHOD
+            class_eval method_declaration
+            
+            if method_name.to_s.end_with?('?')
+              boolean_method_declaration = <<-METHOD
+                def #{method_name.to_s}
+                  if self.validations
+                    validations[:#{method_name.to_s.gsub('?', '')}] && validations[:#{method_name.to_s.gsub('?', '')}] == "1"
+                  else
+                    false
+                  end
+                end
+              METHOD
+              class_eval boolean_method_declaration
+            end
           end
         end
       end

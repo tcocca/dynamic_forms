@@ -22,6 +22,22 @@
         <label>Required?</label>  
         <%= ff.check_box :required,     :name => "form[#{form_field.kind}][#{counter}][required]" %>
       <% end %>
+      <% if field.allow_validation_of? :email %>
+        <label>Email?</label>  
+        <%= ff.check_box :email,     :name => "form[#{form_field.kind}][#{counter}][email]" %>
+      <% end %>
+      <% if field.allow_validation_of? :url %>
+        <label>Url?</label>  
+        <%= ff.check_box :url,     :name => "form[#{form_field.kind}][#{counter}][url]" %>
+      <% end %>
+      <% if field.allow_validation_of? :phone_number %>
+        <label>Phone Number?</label>  
+        <%= ff.check_box :phone_number,     :name => "form[#{form_field.kind}][#{counter}][phone_number]" %>
+      <% end %>
+      <% if field.allow_validation_of? :zip_code %>
+        <label>Zip Code?</label>  
+        <%= ff.check_box :zip_code,     :name => "form[#{form_field.kind}][#{counter}][zip_code]" %>
+      <% end %>
       <% if field.allow_validation_of? :number %>
         <label>Number?</label>    
         <%= ff.check_box :number,       :name => "form[#{form_field.kind}][#{counter}][number]" %>

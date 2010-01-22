@@ -19,10 +19,7 @@ class CreateDynamicForms < ActiveRecord::Migration
       t.column "position", :integer, :limit => 11
       t.column "created_at", :datetime
       t.column "updated_at", :datetime
-      t.column "required", :boolean
-      t.column "number", :boolean
-      t.column "min_length", :integer, :limit => 11
-      t.column "max_length", :integer, :limit => 11
+      t.column "validations", :text
     end
     
     add_index :form_fields, ["form_id"], :name => "index_form_fields_on_form_id"

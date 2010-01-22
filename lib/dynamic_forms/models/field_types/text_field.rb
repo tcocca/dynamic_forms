@@ -10,7 +10,7 @@ module DynamicForms
           model.send(:include, InstanceMethods)
           
           model.class_eval do
-            allow_validation_of :required, :number, :min_length, :max_length
+            allow_validation_of :required, :number, :min_length, :max_length, :email, :zip_code, :phone_number, :url
           end
         end
         
