@@ -13,6 +13,8 @@ module DynamicForms
           serialize :data, Hash
           
           alias_method_chain :valid?, :dynamic_validation
+          
+          before_save :save_file_uploads
         end
       end
       
@@ -57,6 +59,18 @@ module DynamicForms
         
         private
         
+        # After the submission has passed validation, 
+        # write files to the filesystem and 
+        # set the value for the file_field answer to be the path to the file 
+        def save_file_uploads
+          each_field do |field, value|
+            if field.kind == "file_field" && !field.answer.blank?
+              field.process_upload
+              self.send("#{field.name}=".to_sym, field.file_name)
+            end
+          end
+        end
+        
         # Setup accessor to attach #data[:field_key] to #data.field_key
         # for both setters and getters.
         # --
@@ -68,7 +82,7 @@ module DynamicForms
           if field_keys.include? name.gsub(/=/, '')
             return name.include?("=") ? self.data[name.gsub(/=/, '').to_sym] = args.first : self.data[method_name]
           else
-            logger.debug("Form is #{form} and the fields are #{self.form.form_fields if self.form}")
+            logger.debug("Form is #{self.form.name if self.form} and the fields are #{self.form.form_fields if self.form}")
             super
           end
         end

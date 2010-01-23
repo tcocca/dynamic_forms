@@ -14,6 +14,7 @@ class DynamicFormsGenerator < Rails::Generator::Base
       m.template "models/form_field/select.rb", "app/models/form_field/select.rb"
       m.template "models/form_field/text_area.rb", "app/models/form_field/text_area.rb"
       m.template "models/form_field/text_field.rb", "app/models/form_field/text_field.rb"
+      m.template "models/form_field/file_field.rb", "app/models/form_field/file_field.rb"
       
       m.migration_template 'migrations/create_dynamic_forms.rb', 'db/migrate', :migration_file_name => "create_dynamic_forms"
     end

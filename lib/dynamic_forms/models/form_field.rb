@@ -4,7 +4,7 @@ module DynamicForms
   module Models
     module FormField
       
-      TYPES = %w{text_field text_area select check_box check_box_group}
+      TYPES = %w{text_field text_area select check_box check_box_group file_field}
       VALIDATION_TYPES = %w{required? number? max_length min_length zip_code? email? phone_number? url?}
       
       def self.included(model)
@@ -58,6 +58,11 @@ module DynamicForms
         def validate_submission(form_submission)
           self.submission = form_submission
           self.answer = submission.send(name)
+          
+          if self.kind == "file_field"
+            validate_file_type
+          end
+          
           VALIDATION_TYPES.each do |validation|
             self.send("validate_#{validation.gsub('?', '')}".to_sym)
           end
@@ -101,7 +106,6 @@ module DynamicForms
         def assign_name
           self.name = "field_" + Digest::SHA1.hexdigest(self.label + Time.now.to_s).first(20) if self.name.blank?
         end
-        
       end
       
       module ClassMethods
