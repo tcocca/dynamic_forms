@@ -64,7 +64,7 @@ module DynamicForms
         # set the value for the file_field answer to be the path to the file 
         def save_file_uploads
           each_field do |field, value|
-            if field.kind == "file_field" && !field.answer.blank?
+            if field.is_a?(FormField::FileField) && !field.answer.blank?
               field.process_upload
               self.send("#{field.name}=".to_sym, field.file_name)
             end

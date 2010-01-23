@@ -59,7 +59,7 @@ module DynamicForms
           self.submission = form_submission
           self.answer = submission.send(name)
           
-          if self.kind == "file_field"
+          if self.is_a?(FormField::FileField)
             validate_file_type
           end
           
