@@ -70,7 +70,7 @@ module DynamicForms
       # used to output the generated markup
       def to_s
         label = @field.label
-        val = @field.is_a?(FormField::FileField) ? formatted_value : @template.send(:h, formatted_value)
+        val = @field.is_a?(::FormField::FileField) ? formatted_value : @template.send(:h, formatted_value)
         if @block
           @template.concat(@template.capture(label, val, &@block), @block.binding)
         else
@@ -93,9 +93,9 @@ module DynamicForms
           val = [val] unless val.respond_to?('join')
           val = val.join(", ")
           value_with_blank_notice(val)
-        elsif @field.is_a? FormField::FileField
+        elsif @field.is_a? ::FormField::FileField
           value_with_download_link(@value)
-        elsif @field.is_a? FormField::CheckBox
+        elsif @field.is_a? ::FormField::CheckBox
           @value == '1' ? TRUE_VALUE : FALSE_VALUE
         else
           value_with_blank_notice(@value)
@@ -107,7 +107,7 @@ module DynamicForms
       end
       
       def value_with_download_link(val = nil)
-        val.blank? ? NO_RESONSE : "#{format_filename(val)} #{link_to('Download', val, {:target => '_blank'})}"
+        val.blank? ? NO_RESPONSE : "#{format_filename(val)} #{link_to('Download', val, {:target => '_blank'})}"
       end
       
       def format_filename(filename)

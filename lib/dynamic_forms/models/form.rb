@@ -116,7 +116,7 @@ module DynamicForms
         end
         
         def is_multipart?
-          !self.form_fields.detect{|ff| ff.is_a?(FormField::FileField)}.blank?
+          !self.form_fields.detect{|ff| ff.is_a?(::FormField::FileField)}.blank?
         end
       end
       
