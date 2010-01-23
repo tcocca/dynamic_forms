@@ -5,7 +5,7 @@ module DynamicForms
     module FormField
       
       TYPES = %w{text_field text_area select check_box check_box_group file_field}
-      VALIDATION_TYPES = %w{required? number? max_length min_length zip_code? email? phone_number? url?}
+      VALIDATION_TYPES = %w{required? number? max_length min_length zip_code? email? phone_number? url? mime_types}
       
       def self.included(model)
         model.extend(ClassMethods)
@@ -59,12 +59,9 @@ module DynamicForms
           self.submission = form_submission
           self.answer = submission.send(name)
           
-          if self.is_a?(FormField::FileField)
-            validate_file_type
-          end
-          
           VALIDATION_TYPES.each do |validation|
-            self.send("validate_#{validation.gsub('?', '')}".to_sym)
+            validation_name = validation.gsub('?', '')
+            self.send("validate_#{validation_name}".to_sym) if self.allow_validation_of?(validation_name.to_sym)
           end
         end
         

@@ -26,14 +26,14 @@ module DynamicForms
           model.class_eval do
             attr_accessor :file_name
             
-            allow_validation_of :required
+            allow_validation_of :required, :mime_types
           end
         end
         
         module InstanceMethods
           
-          def validate_file_type
-            if !answer.blank? && !VALID_MIME_TYPES.include?(answer.content_type.strip)
+          def validate_mime_types
+            if !answer.blank? && !is_valid_mime_type?
               add_error_to_submission(" is an invalid file type.")
             end
           end
@@ -51,6 +51,14 @@ module DynamicForms
           end
           
           private
+          
+          def is_valid_mime_type?
+            if !mime_types.blank?
+              mime_types.split(',').collect{|mt| mt.strip}.include?(answer.content_type.strip)
+            else
+              VALID_MIME_TYPES.include?(answer.content_type.strip)
+            end
+          end
           
           def check_path(timestamp)
             base_dir = RAILS_ROOT + "/public/dynamic_forms"

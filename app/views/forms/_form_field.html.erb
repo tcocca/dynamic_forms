@@ -19,36 +19,41 @@
     
     <div class="validation">
       <% if field.allow_validation_of? :required %>
-        <label>Required?</label>  
-        <%= ff.check_box :required,     :name => "form[#{form_field.kind}][#{counter}][required]" %>
+        <%= ff.label :required, "Required?" %>&nbsp;
+        <%= ff.check_box :required, :name => "form[#{form_field.kind}][#{counter}][required]" %><br />
       <% end %>
       <% if field.allow_validation_of? :email %>
-        <label>Email?</label>  
-        <%= ff.check_box :email,     :name => "form[#{form_field.kind}][#{counter}][email]" %>
+        <%= ff.label :email, "Email?" %>&nbsp;
+        <%= ff.check_box :email, :name => "form[#{form_field.kind}][#{counter}][email]" %><br />
       <% end %>
       <% if field.allow_validation_of? :url %>
-        <label>Url?</label>  
-        <%= ff.check_box :url,     :name => "form[#{form_field.kind}][#{counter}][url]" %>
+        <%= ff.label :url, "URL?" %>&nbsp;
+        <%= ff.check_box :url, :name => "form[#{form_field.kind}][#{counter}][url]" %><br />
       <% end %>
       <% if field.allow_validation_of? :phone_number %>
-        <label>Phone Number?</label>  
-        <%= ff.check_box :phone_number,     :name => "form[#{form_field.kind}][#{counter}][phone_number]" %>
+        <%= ff.label :phone_types, "Phone Number?" %>&nbsp;
+        <%= ff.check_box :phone_number, :name => "form[#{form_field.kind}][#{counter}][phone_number]" %><br />
       <% end %>
       <% if field.allow_validation_of? :zip_code %>
-        <label>Zip Code?</label>  
-        <%= ff.check_box :zip_code,     :name => "form[#{form_field.kind}][#{counter}][zip_code]" %>
+        <%= ff.label :zip_code, "Zip Code?" %>&nbsp;
+        <%= ff.check_box :zip_code, :name => "form[#{form_field.kind}][#{counter}][zip_code]" %><br />
       <% end %>
       <% if field.allow_validation_of? :number %>
-        <label>Number?</label>    
-        <%= ff.check_box :number,       :name => "form[#{form_field.kind}][#{counter}][number]" %>
+        <%= ff.label :number, "Number?" %>&nbsp;
+        <%= ff.check_box :number, :name => "form[#{form_field.kind}][#{counter}][number]" %><br />
       <% end %>
       <% if field.allow_validation_of? :min_length %>
-        <label>Min Chars</label>  
-        <%= ff.text_field :min_length,  :name => "form[#{form_field.kind}][#{counter}][min_length]", :size => 3 %>
+        <%= ff.label :min_length, "Min Chars?" %>&nbsp;
+        <%= ff.text_field :min_length, :name => "form[#{form_field.kind}][#{counter}][min_length]", :size => 3 %><br />
       <% end %>
       <% if field.allow_validation_of? :max_length %>
-        <label>Max Chars</label>  
-        <%= ff.text_field :max_length,  :name => "form[#{form_field.kind}][#{counter}][max_length]", :size => 3 %>
+        <%= ff.label :max_length, "Max Chars?" %>&nbsp;
+        <%= ff.text_field :max_length, :name => "form[#{form_field.kind}][#{counter}][max_length]", :size => 3 %><br />
+      <% end %>
+      <% if field.allow_validation_of? :mime_types %>
+        <%= ff.label :mime_types, "Mime Types?" %>&nbsp;
+        <%= ff.text_field :mime_types, :name => "form[#{form_field.kind}][#{counter}][mime_types]" %>&nbsp;
+        <span class="helper_text">Separate by comma (leave blank for default mime types)</span><br />
       <% end %>
       <span class="remove_field_link"><%= link_to_function "Remove", "$(this).up('.field').remove(); $('fields_count').value = parseInt($('fields_count').value) - 1;" %></span>
     </div>
