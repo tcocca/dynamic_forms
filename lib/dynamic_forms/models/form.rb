@@ -114,6 +114,10 @@ module DynamicForms
         def field_keys
           self.form_fields.map(&:name)
         end
+        
+        def is_multipart?
+          !self.form_fields.detect{|ff| ff.is_a?(::FormField::FileField)}.blank?
+        end
       end
       
       module ClassMethods

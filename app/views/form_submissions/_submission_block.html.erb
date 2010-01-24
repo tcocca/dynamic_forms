@@ -1,6 +1,11 @@
 <h2><%= @form.name %></h2>
 
-<% form_for :form_submission, @form_submission, :url => form_form_submissions_path(:form_id => @form.id), :html => {:method => :post, :multipart => true, :class => 'form_submission_form'} do |f| %>
+<%
+  html_attrs = {:method => :post, :class => 'form_submission_form'}
+  html_attrs[:multipart] = true if @form.is_multipart?
+%>
+
+<% form_for :form_submission, @form_submission, :url => form_form_submissions_path(:form_id => @form.id), :html => html_attrs do |f| %>
   <% unless @form.instructions.blank? %>
     <p><%= @form.instructions %></p>
   <% end %>
