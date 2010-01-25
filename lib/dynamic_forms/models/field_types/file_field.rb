@@ -70,13 +70,14 @@ module DynamicForms
             timestamp_dir
           end
           
+          # NOTE: File.basename doesn't work right with Windows paths on Unix
+          # get only the filename, not the whole path
+          # Replace all non alphanumeric, underscore
+          # or periods with underscore
+          # Downcase the whole string
+          # Prepend the form_field.id on the front to fix issue with multiple file_fields in a form with the same file_name uploaded.
           def sanitize_filename(filename)
-            # NOTE: File.basename doesn't work right with Windows paths on Unix
-            # get only the filename, not the whole path
-            # Replace all non alphanumeric, underscore
-            # or periods with underscore
-            #Downcase the whole string
-            filename.strip.gsub(/^.*(\\|\/)/, '').gsub(/[^\w\.\-]/, '_').downcase
+            "#{self.id}_" + filename.strip.gsub(/^.*(\\|\/)/, '').gsub(/[^\w\.\-]/, '_').downcase
           end
           
         end
