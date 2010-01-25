@@ -1,0 +1,29 @@
+== (01/25/10)
+* Added the changelog file (Tom Cocca)
+
+== (01/23/10)
+* Added a FileField option (Tom Cocca)
+  * Ability to specify the mime types for each file field or leave blank to use the default mime type set
+
+== (01/22/10)
+* Made the validations more dynamic (Tom Cocca)
+  * Moved to a serialized field, to store validations on a form field
+* Added more validations (Tom Cocca)
+  * URL?
+  * Email Address?
+  * Phone Number?
+  * Zip Code?
+
+== (01/17/10)
+* Made the validations cleaner, moved them to their own module (Tom Cocca)
+
+== (01/15/10)
+* Converted the plugin to an egine (Tom Cocca)
+  * The generator now generates models
+  * The engine loads routes (allows overwriting, stolen from clearance)
+
+== (01/07/10)
+* Added a Generator for Migrations (Tom Cocca)
+
+== (03/24/09)
+* Initial Plugin Released (Chris Powers)

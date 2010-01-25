@@ -32,8 +32,8 @@ The generator will generate a migration and a bunch of models.  The model files 
 
 == CURRENT FORM OPTIONS
 
-* Create a form
-* Choose and order form fields
+* Create and edit a form
+* Choose form fields
 * Set validations on the field
 * Set form "instruction text" that appears above the form fields
 * On submission the answers are validated
@@ -64,7 +64,6 @@ The generator will generate a migration and a bunch of models.  The model files 
 == TODO
 
 * Better Documentation
-  * Create a CHANGELOG file
 
 * Shoulda and Cucumber Tests
 
@@ -95,6 +94,14 @@ The generator will generate a migration and a bunch of models.  The model files 
   * Set the File Types, Validations and Default Mime Types in the configuration object instead of class constants
 
 * Update the way the routes are generated
+
+* Be able to re-order the form fields
+
+* Be able to set the following field options
+  * Select: Size (for multiselect), Default? (selected value)
+  * Check Box: Checked? (whether to check the box by default)
+  * Check Box Group: Checked? (whether to check the box by default)
+  * Radio Button: Default? (which option should be selected by default)
 
 ==
 
