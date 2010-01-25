@@ -1,14 +1,16 @@
 = DynamicForms
 
-Created by Chris Powers, March 19, 2009
+Originally Created by Chris Powers, March 19, 2009
 
 Thanks to Jacob Basham (http://github.com/jkster) for his additions and refactoring.
 
+Updates done by Tom Cocca in 2010
+
 == Make Your Own Forms
 
-The DynamicForms plugin simply drops in the controllers, models, helpers and views you need to allow your users to create their own forms on your Web app. These forms act like regular Rails forms, using validation, error checking, the works.
+The DynamicForms plugin is an engine that allows your users to create their own forms on your Web app. These forms act like regular Rails forms, using validation, error checking, the works.
 
-Once you've installed the plugin and all the files have been copied into your app, feel free to customize as you see fit. Here's a few suggestions:
+Once you've installed the plugin run the generator and all the files have been copied into your app, feel free to customize as you see fit. Here's a few suggestions:
 
 * You will probably want to add relationships between Forms, FormSubmissions and your user/account model, assuming you want users to has_many :forms and/or has_many :form_submissions
 * You will also probably want to add your login authentication to the FormsController and FormSubmissionsController
@@ -16,12 +18,84 @@ Once you've installed the plugin and all the files have been copied into your ap
 
 For those of you who can make use of this plugin, I hope that this saves you a lot of time!
 
+== INSTALLATION
+
+Install as a plugin:
+
+  script/plugin install git://github.com/tcocca/dynamic_forms.git
+
+Run the generator:
+
+  script/generate dynamic_forms
+
+The generator will generate a migration and a bunch of models.  The model files will just have includes to modules that are in the lib directory of the plugin.
+
+== CURRENT FORM OPTIONS
+
+* Create a form
+* Choose and order form fields
+* Set validations on the field
+* Set form "instruction text" that appears above the form fields
+* On submission the answers are validated
+* File Field uploads are only saved to the file system for a submission that passes validation
+* Ability to see all form submissions with answers
+
+=== Field Types:
+* Text Field
+* Text Area
+* Check Box
+* Check Box Group
+* Select
+* File Field
+
+=== Validations:
+(Field Types applicable in ())
+
+* Required (Text Field, Text Area, File Field, Select, Check Box Group)
+* Phone Number (Text Field)
+* Email Address (Text Field)
+* Zip Code (Text Field)
+* URL (Text Field)
+* Min Characters (Text Field, Text Area)
+* Max Characters (Text Field, Text Area)
+* Number (Text Field)
+* Mime Types (File Field) - if this option is left blank it will use a default set of mime types so there is always validation on a file upload
+
 == TODO
 
 * Better Documentation
-* Rspec and Cucumber Tests
-* Make Javascript Unobtrusive
-* Default Stylesheet
-* More Field Choices
+  * Create a CHANGELOG file
 
-Copyright (c) 2009 Chris Powers, released under the MIT license
+* Shoulda and Cucumber Tests
+
+* Make Javascript Unobtrusive
+  * Default Javascript File
+  * Be able to support both Prototype and JQuery
+
+* Default Stylesheet
+
+* Add a helper method to include the dynamic_forms public assets in the template ( <%= dynamic_forms_includes %> )
+
+* More Field Choices
+  * Radio Button Field (This would be a group)
+  * Country Select Field (use a plugin => http://github.com/rails/country_select)
+  * US State Select (use a plugin => http://github.com/sprsquish/state_select or http://github.com/jslag/us-state-select-plugin)
+  * Date Field
+  * Time Field
+  * Datetime Field
+    * I would like to be able to use a nice JS date/time picker but I would need a way to support both Prototype and JQuery
+
+* Add the ability to choose if you want an email to be sent when submit fills out the form
+  * Specify the email address on a per-form basis
+  * Attach results of file_fields as attachments in the email (Maybe?)
+
+* Add the ability to specify "Thank You" text to display on the template when a form has been submitted
+
+* Add a configuration initializer
+  * Set the File Types, Validations and Default Mime Types in the configuration object instead of class constants
+
+* Update the way the routes are generated
+
+==
+
+Copyright (c) 2010 Tom Cocca (Original Work done in 2009 by Chris Powers), released under the MIT license
