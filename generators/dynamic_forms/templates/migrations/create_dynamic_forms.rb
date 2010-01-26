@@ -45,6 +45,7 @@ class CreateDynamicForms < ActiveRecord::Migration
       t.column "created_at", :datetime
       t.column "updated_at", :datetime
       t.column "instructions", :text
+      t.column "confirmation", :text
       t.column "active", :boolean, :default => true
     end
     

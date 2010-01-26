@@ -88,8 +88,6 @@ The generator will generate a migration and a bunch of models.  The model files 
   * Specify the email address on a per-form basis
   * Attach results of file_fields as attachments in the email (Maybe?)
 
-* Add the ability to specify "Thank You" text to display on the template when a form has been submitted
-
 * Add a configuration initializer
   * Set the File Types, Validations and Default Mime Types in the configuration object instead of class constants
 

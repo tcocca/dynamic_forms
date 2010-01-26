@@ -10,6 +10,7 @@ class DynamicForms::FormSubmissionsController < ApplicationController
   
   def show
     @form_submission = @form.form_submissions.find(params[:id])
+    @submitted = (params[:submitted] ? true : false)
     render :template => "form_submissions/show"
   end
   
@@ -22,7 +23,7 @@ class DynamicForms::FormSubmissionsController < ApplicationController
     @form_submission = @form.form_submissions.submit(params[:form_submission])
     if !@form_submission.new_record?
       flash[:notice] = "Thank you for filling out this form!"
-      redirect_to form_form_submission_path(@form, @form_submission)
+      redirect_to form_form_submission_path(@form, @form_submission, :submitted => true)
     else
       render :action => 'new', :template => "form_submissions/new"
     end

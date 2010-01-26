@@ -1,4 +1,5 @@
 == (01/25/10)
+* Added Form "Confirmation Text" which is displayed when a form is submitted successfully (Tom Cocca)
 * Fixed the bug when uploading the same file for multiple file fields in the same form, the file gets overwritten.  Now, I prepend the form_field.id onto the front of the file name. (Tom Cocca)
 * Added the changelog file (Tom Cocca)
 

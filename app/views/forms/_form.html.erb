@@ -4,6 +4,7 @@
   <%= f.label :name, "Form Name" %>
   <%= f.text_field :name %>
 </div>
+
 <div>
   <%= f.label :instructions, "Form Instructions (optional)" %>
   <%= f.text_area :instructions %>
@@ -12,6 +13,11 @@
 <div>
   <%= f.label :submit_label, "Submit Button Label" %>
   <%= f.text_field :submit_label %>
+</div>
+
+<div>
+  <%= f.label :confirmation, "Form Confirmation (optional, displayed to the user after a successful submission)" %>
+  <%= f.text_area :confirmation %>
 </div>
 
 <div>
