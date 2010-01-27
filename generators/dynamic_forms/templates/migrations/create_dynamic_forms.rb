@@ -40,6 +40,7 @@ class CreateDynamicForms < ActiveRecord::Migration
       t.column "name", :string
       t.column "submit_label", :string
       t.column "email", :string
+      t.column "email_submissions", :boolean, :default => false, :null => false
       t.column "formable_type", :string
       t.column "formable_id", :integer, :limit => 11
       t.column "created_at", :datetime

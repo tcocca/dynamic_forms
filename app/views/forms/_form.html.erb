@@ -6,7 +6,7 @@
 </div>
 
 <div>
-  <%= f.label :instructions, "Form Instructions (optional)" %>
+  <%= f.label :instructions, "Form Instructions (optional)" %><br />
   <%= f.text_area :instructions %>
 </div>
 
@@ -16,13 +16,23 @@
 </div>
 
 <div>
-  <%= f.label :confirmation, "Form Confirmation (optional, displayed to the user after a successful submission)" %>
+  <%= f.label :confirmation, "Form Confirmation (optional, displayed to the user after a successful submission)" %><br />
   <%= f.text_area :confirmation %>
 </div>
 
 <div>
   <%= f.label :active, "Active?" %>
   <%= f.check_box :active %>
+</div>
+
+<div>
+  <%= f.label :email_submissions, "Email Submissions?" %>
+  <%= f.check_box :email_submissions %>
+</div>
+
+<div>
+  <%= f.label :email, "Send to Email Address" %>
+  <%= f.text_field :email %>
 </div>
 
 <table>

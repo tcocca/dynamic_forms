@@ -23,6 +23,9 @@ class DynamicForms::FormSubmissionsController < ApplicationController
     @form_submission = @form.form_submissions.submit(params[:form_submission])
     if !@form_submission.new_record?
       flash[:notice] = "Thank you for filling out this form!"
+      if @form.email_submissions? && !@form.email.blank?
+        ::DynamicFormsMailer.deliver_form_submission(@form_submission)
+      end
       redirect_to form_form_submission_path(@form, @form_submission, :submitted => true)
     else
       render :action => 'new', :template => "form_submissions/new"

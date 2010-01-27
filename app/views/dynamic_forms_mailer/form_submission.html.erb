@@ -1,0 +1,15 @@
+<h2><%= @form_submission.form.name %></h2>
+
+<p>
+  <% @form_submission.each_field do |field, value| %>
+    <% if field.is_a?(FormField::FileField) %>
+      <b><%= field.label %>:</b>&nbsp;<%= value.split('/').last.to_s unless value.blank? %><br />
+    <% else %>
+      <% format_submission_field(field, value) do |label, val| %>
+        <b><%= label %>:</b>&nbsp;<%= val %><br />
+      <% end %>
+    <% end %>
+  <% end %>
+</p>
+
+<p>Submitted: <%= @form_submission.created_at.strftime('%m/%d/%Y %I:%M %p') %></p>
