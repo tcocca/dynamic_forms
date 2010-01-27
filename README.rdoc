@@ -99,6 +99,9 @@ The generator will generate a migration and a bunch of models.  The model files 
   * Check Box: Checked? (whether to check the box by default)
   * Check Box Group: Checked? (whether to check the box by default)
   * Radio Button: Default? (which option should be selected by default)
+  
+* Add a validation for: confirmed?  This will make sure that the user has to check a check box form field
+  * Useful for the, "You must agree ..." type questions
 
 ==
 
