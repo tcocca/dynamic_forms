@@ -36,6 +36,9 @@ The generator will generate a migration and a bunch of models.  The model files 
 * Choose form fields
 * Set validations on the field
 * Set form "instruction text" that appears above the form fields
+* Set form "confirmation text" that appears after a form has been submitted successfully
+* Ability to opt to have an email sent on successful form submission with file uploads as attachments
+* Can set the delivery email on a per form basis
 * On submission the answers are validated
 * File Field uploads are only saved to the file system for a submission that passes validation
 * Ability to see all form submissions with answers
@@ -83,10 +86,6 @@ The generator will generate a migration and a bunch of models.  The model files 
   * Time Field
   * Datetime Field
     * I would like to be able to use a nice JS date/time picker but I would need a way to support both Prototype and JQuery
-
-* Add the ability to choose if you want an email to be sent when submit fills out the form
-  * Specify the email address on a per-form basis
-  * Attach results of file_fields as attachments in the email (Maybe?)
 
 * Add a configuration initializer
   * Set the File Types, Validations and Default Mime Types in the configuration object instead of class constants

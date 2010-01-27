@@ -1,3 +1,8 @@
+== (01/26/10)
+* Added the ability to opt to have an email sent for each submission (Tom Cocca)
+  * Can set this per form
+  * If the form has file fields and the user has submitted files they are sent as attachments in the email
+
 == (01/25/10)
 * Added Form "Confirmation Text" which is displayed when a form is submitted successfully (Tom Cocca)
 * Fixed the bug when uploading the same file for multiple file fields in the same form, the file gets overwritten.  Now, I prepend the form_field.id onto the front of the file name. (Tom Cocca)
