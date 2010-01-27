@@ -49,13 +49,13 @@ module DynamicForms
       include ActionView::Helpers::UrlHelper
       
       # String output representing a blank response
-      NO_RESPONSE = "(no response)"
+      NO_RESPONSE = "(no response)" unless const_defined?("NO_RESPONSE")
       
       # String output for 'true'
-      TRUE_VALUE = "Yes"
+      TRUE_VALUE = "Yes" unless const_defined?("TRUE_VALUE")
       
       # String output for 'false'
-      FALSE_VALUE = "No"
+      FALSE_VALUE = "No" unless const_defined?("FALSE_VALUE")
       
       # Do not instantiate directly, use the #formate_submission_field method instead
       def initialize(template, field, value, &block)
