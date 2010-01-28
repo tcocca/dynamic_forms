@@ -103,6 +103,9 @@ The generator will generate a migration and a bunch of models.  The model files 
   * The Terms and Conditions will be in a READ ONLY text area field with the checkbox below
   * use the new confirmed? validation to make people agree to the terms
 
+* Support internationalization (I18n)
+  * Might even make it easier for users to override flash and error messages without having to override modules or classes
+
 ==
 
 Copyright (c) 2010 Tom Cocca (Original Work done in 2009 by Chris Powers), released under the MIT license
