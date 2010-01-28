@@ -98,6 +98,11 @@ The generator will generate a migration and a bunch of models.  The model files 
   * Check Box Group: Checked? (whether to check the box by default)
   * Radio Button: Default? (which option should be selected by default)
 
+* Add a new meta field option to check box fields:  Terms and Conditions
+  * Be able to add a Terms and Conditions checkbox above the checkbox, the answer will be the agreement to the terms (checking the box)
+  * The Terms and Conditions will be in a READ ONLY text area field with the checkbox below
+  * use the new confirmed? validation to make people agree to the terms
+
 ==
 
 Copyright (c) 2010 Tom Cocca (Original Work done in 2009 by Chris Powers), released under the MIT license
