@@ -48,15 +48,6 @@ module DynamicForms
       include ActionView::Helpers::TagHelper
       include ActionView::Helpers::UrlHelper
       
-      # String output representing a blank response
-      NO_RESPONSE = "(no response)" unless const_defined?("NO_RESPONSE")
-      
-      # String output for 'true'
-      TRUE_VALUE = "Yes" unless const_defined?("TRUE_VALUE")
-      
-      # String output for 'false'
-      FALSE_VALUE = "No" unless const_defined?("FALSE_VALUE")
-      
       # Do not instantiate directly, use the #formate_submission_field method instead
       def initialize(template, field, value, &block)
         @field = field
@@ -89,25 +80,25 @@ module DynamicForms
       def formatted_value
         if @field.has_many_responses?
           # ensure value is an array
-          val = @value || [NO_RESPONSE]
+          val = @value || DynamicForms.configuration.no_response
           val = [val] unless val.respond_to?('join')
           val = val.join(", ")
           value_with_blank_notice(val)
         elsif @field.is_a? ::FormField::FileField
           value_with_download_link(@value)
         elsif @field.is_a? ::FormField::CheckBox
-          @value == '1' ? TRUE_VALUE : FALSE_VALUE
+          @value == '1' ? DynamicForms.configuration.true_value : DynamicForms.configuration.false_value
         else
           value_with_blank_notice(@value)
         end
       end
       
       def value_with_blank_notice(val = nil)
-        val.blank? ? NO_RESPONSE : val
+        val.blank? ? DynamicForms.configuration.no_response : val
       end
       
       def value_with_download_link(val = nil)
-        val.blank? ? NO_RESPONSE : "#{format_filename(val)} #{link_to('Download', val, {:target => '_blank'})}"
+        val.blank? ? DynamicForms.configuration.no_response : "#{format_filename(val)} #{link_to('Download', val, {:target => '_blank'})}"
       end
       
       def format_filename(filename)

@@ -67,7 +67,7 @@
         <div id="add_fields" style="height: 100%;">
           <h4 class="header">Add Another Field...</h4>
           <ul id="add_field_links">
-          <% ::FormField::TYPES.each do |field_type| %>
+          <% DynamicForms.configuration.field_types.each do |field_type| %>
             <li>
               <%= link_to_function "Add a #{field_type.titleize}" do |page|
                   page.insert_html :bottom, 'form_fields', :partial => "forms/form_field", :object => @form.send(field_type.pluralize.to_sym).build, :locals => {:f => f, :counter => ''}

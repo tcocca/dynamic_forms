@@ -4,20 +4,6 @@ module DynamicForms
     module FieldTypes
       module FileField
         
-        VALID_MIME_TYPES = [
-          "image/jpg",
-          "image/jpeg",
-          "image/pjpeg",
-          "image/gif",
-          "image/png",
-          "application/msword",
-          "application/pdf",
-          "application/excel",
-          "application/vnd.ms-excel",
-          "application/x-excel",
-          "application/x-msexcel"
-        ]
-        
         def self.included(model)
           model.extend(ClassMethods)
           
@@ -56,7 +42,7 @@ module DynamicForms
             if !mime_types.blank?
               mime_types.split(',').collect{|mt| mt.strip}.include?(answer.content_type.strip)
             else
-              VALID_MIME_TYPES.include?(answer.content_type.strip)
+              DynamicForms.configuration.valid_mime_types.include?(answer.content_type.strip)
             end
           end
           

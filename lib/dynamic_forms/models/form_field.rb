@@ -4,9 +4,6 @@ module DynamicForms
   module Models
     module FormField
       
-      TYPES = %w{text_field text_area select check_box check_box_group file_field}
-      VALIDATION_TYPES = %w{required? number? max_length min_length zip_code? email? phone_number? url? mime_types}
-      
       def self.included(model)
         model.extend(ClassMethods)
         
@@ -19,7 +16,7 @@ module DynamicForms
         model.class_eval do
           serialize :validations, Hash
           
-          eval "serialized_validation_attr_accessor #{VALIDATION_TYPES.collect{|t| ":#{t}"}.join(', ')}"
+          eval "serialized_validation_attr_accessor #{DynamicForms.configuration.validation_types.collect{|t| ":#{t}"}.join(', ')}"
           
           attr_accessor :answer, :submission
         end
@@ -59,7 +56,7 @@ module DynamicForms
           self.submission = form_submission
           self.answer = submission.send(name)
           
-          VALIDATION_TYPES.each do |validation|
+          DynamicForms.configuration.validation_types.each do |validation|
             validation_name = validation.gsub('?', '')
             self.send("validate_#{validation_name}".to_sym) if self.allow_validation_of?(validation_name.to_sym)
           end

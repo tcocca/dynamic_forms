@@ -14,7 +14,7 @@ module DynamicForms
         def form_submission(form_submission)
           @subject      = "A new submission for form: #{form_submission.form.name} has been submitted"
           @recipients   = form_submission.form.email
-          @from         = form_submission.form.email
+          @from         = DynamicForms.configuration.mailer_sender
           @sent_on      = Time.now
           @body         = {:form_submission => form_submission}
           

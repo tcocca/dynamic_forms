@@ -1,3 +1,5 @@
+require 'dynamic_forms/configuration'
+
 require 'dynamic_forms/extensions/routes'
 require 'dynamic_forms/extensions/dynamic_validations'
 

@@ -2,6 +2,8 @@ class DynamicFormsGenerator < Rails::Generator::Base
   
   def manifest
     record do |m|
+      m.directory "config/initializers"
+      m.template "initializers/dynamic_forms.rb", "config/initializers/dynamic_forms.rb"
       m.directory "app/models"
       m.template "models/form.rb", "app/models/form.rb"
       m.template "models/form_field.rb", "app/models/form_field.rb"
