@@ -50,6 +50,10 @@
         <%= ff.label :max_length, "Max Chars?" %>&nbsp;
         <%= ff.text_field :max_length, :name => "form[#{form_field.kind}][#{counter}][max_length]", :size => 3 %><br />
       <% end %>
+      <% if field.allow_validation_of? :confirmed %>
+        <%= ff.label :confirmed, "Confirmed?" %>&nbsp;
+        <%= ff.check_box :confirmed, :name => "form[#{form_field.kind}][#{counter}][confirmed]" %><br />
+      <% end %>
       <% if field.allow_validation_of? :mime_types %>
         <%= ff.label :mime_types, "Mime Types?" %>&nbsp;
         <%= ff.text_field :mime_types, :name => "form[#{form_field.kind}][#{counter}][mime_types]" %>&nbsp;

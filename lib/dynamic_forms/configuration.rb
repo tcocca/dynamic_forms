@@ -18,7 +18,7 @@ module DynamicForms
       @true_value = "Yes"
       @false_value = "No"
       @field_types = %w{text_field text_area select check_box check_box_group file_field}
-      @validation_types = %w{required? number? max_length min_length zip_code? email? phone_number? url? mime_types}
+      @validation_types = %w{required? number? max_length min_length zip_code? email? phone_number? url? confirmed? mime_types}
       @valid_mime_types = [
         "image/jpg",
         "image/jpeg",

@@ -50,6 +50,12 @@ module DynamicForms
         end
       end
       
+      def validate_confirmed
+        if self.confirmed? && !is_confirmed?
+          add_error_to_submission(" must be selected.")
+        end
+      end
+      
       private
       
       def is_number?
@@ -71,6 +77,10 @@ module DynamicForms
       def is_url?
         self.answer = "http://#{answer}" unless (answer.include?('http://') || answer.include?('https://'))
         !(answer =~ /(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix).nil?
+      end
+      
+      def is_confirmed?
+        !answer.blank? && answer == "1"
       end
       
       def add_error_to_submission(msg)

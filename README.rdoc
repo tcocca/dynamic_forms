@@ -63,6 +63,7 @@ The generator will generate a migration and a bunch of models.  The model files 
 * Max Characters (Text Field, Text Area)
 * Number (Text Field)
 * Mime Types (File Field) - if this option is left blank it will use a default set of mime types so there is always validation on a file upload
+* Confirmed (Check Box) - checkbox must be checked, useful for "you agree" type of questions
 
 == TODO
 
@@ -96,9 +97,6 @@ The generator will generate a migration and a bunch of models.  The model files 
   * Check Box: Checked? (whether to check the box by default)
   * Check Box Group: Checked? (whether to check the box by default)
   * Radio Button: Default? (which option should be selected by default)
-  
-* Add a validation for: confirmed?  This will make sure that the user has to check a check box form field
-  * Useful for the, "You must agree ..." type questions
 
 ==
 

@@ -21,7 +21,7 @@ DynamicForms.configure do |config|
   
   # configures the validation types that are available to be used on form fields
   # by default you should not have to change these values unless you add a custom validation type
-  # config.validation_types = %w{required? number? max_length min_length zip_code? email? phone_number? url? mime_types}
+  # config.validation_types = %w{required? number? max_length min_length zip_code? email? phone_number? url? confirmed? mime_types}
   
   # configures to the default valid mime types for file field uploads
   # if you do not specify mime types on the form field directly the system will validate the upload against these default mime types

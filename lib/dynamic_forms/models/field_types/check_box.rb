@@ -8,6 +8,10 @@ module DynamicForms
           model.extend(ClassMethods)
           
           model.send(:include, InstanceMethods)
+          
+          model.class_eval do
+            allow_validation_of :confirmed
+          end
         end
         
         module InstanceMethods
