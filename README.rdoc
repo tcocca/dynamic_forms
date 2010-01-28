@@ -87,9 +87,6 @@ The generator will generate a migration and a bunch of models.  The model files 
   * Datetime Field
     * I would like to be able to use a nice JS date/time picker but I would need a way to support both Prototype and JQuery
 
-* Add a configuration initializer
-  * Set the File Types, Validations and Default Mime Types in the configuration object instead of class constants
-
 * Update the way the routes are generated
 
 * Be able to re-order the form fields
