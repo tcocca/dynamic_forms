@@ -4,6 +4,7 @@
   * Allows you to specify options for each radio button
   * Displays the field label with radio buttons and a label for each option
   * Optional required? validation
+* Fixed the label and element id issues on the check box group checkboxes (Tom Cocca)
 
 == (01/27/10)
 * Added a configuration object (Tom Cocca)
