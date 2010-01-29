@@ -54,7 +54,7 @@ module DynamicForms
         # iterate through all possible choices
         boxes = full_collection.collect do |item|
           n = name_for(name, '')
-          id = id_for(name)
+          id = id_for(name, item)
           checked = obj_collection.include? item
           markup = %Q{<input type="checkbox" id="#{id}" name="#{n}" value="#{item}" #{'checked' if checked} />}
           [markup, item]
@@ -70,7 +70,7 @@ module DynamicForms
           out = []
           out << "<ul class='check_box_group'>\n"
           boxes.each do |markup, item|
-            out << "<li>#{markup}<label for='#{name_for name}'>#{item}</label></li>\n"
+            out << "<li>#{markup}<label for='#{id_for(name, item)}'>#{item}</label></li>\n"
           end
           out << "</ul>\n<div class='clearer'></div>\n"
           out
