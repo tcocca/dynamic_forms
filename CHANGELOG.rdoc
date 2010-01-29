@@ -1,3 +1,15 @@
+== (01/28/10)
+* Added a confirmed? validation to ensure a checkbox was checked (Tom Cocca)
+* Added a RadioButtonSelect field type (Tom Cocca)
+  * Allows you to specify options for each radio button
+  * Displays the field label with radio buttons and a label for each option
+  * Optional required? validation
+
+== (01/27/10)
+* Added a configuration object (Tom Cocca)
+  * Configured in an initializer
+  * Generator script creates and initializer with documention on all the default settings
+
 == (01/26/10)
 * Added the ability to opt to have an email sent for each submission (Tom Cocca)
   * Can set this per form

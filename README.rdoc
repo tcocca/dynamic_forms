@@ -50,11 +50,12 @@ The generator will generate a migration and a bunch of models.  The model files 
 * Check Box Group
 * Select
 * File Field
+* Radio Button Select
 
 === Validations:
 (Field Types applicable in ())
 
-* Required (Text Field, Text Area, File Field, Select, Check Box Group)
+* Required (Text Field, Text Area, File Field, Select, Check Box Group, Radio Button Select)
 * Phone Number (Text Field)
 * Email Address (Text Field)
 * Zip Code (Text Field)
@@ -80,7 +81,6 @@ The generator will generate a migration and a bunch of models.  The model files 
 * Add a helper method to include the dynamic_forms public assets in the template ( <%= dynamic_forms_includes %> )
 
 * More Field Choices
-  * Radio Button Field (This would be a group)
   * Country Select Field (use a plugin => http://github.com/rails/country_select)
   * US State Select (use a plugin => http://github.com/sprsquish/state_select or http://github.com/jslag/us-state-select-plugin)
   * Date Field

@@ -25,6 +25,9 @@
         select_options[:source] = @form_submission.send(field.name)
         options = field.check_box_group_collection
       end %>
+    <% if field.kind == 'radio_button_select' 
+        options = field.radio_button_select_collection
+      end %>
     <div>
       <%= f.label field.name, field.label %>
       <% if select_options %>
