@@ -13,7 +13,7 @@
     <% if field.is_selector? %>
       <p>Please enter the possible values separated by commas.</p>
       <div>
-        <%= ff.text_area :options_string, :label => 'Options', :name => "form[#{form_field.kind}][#{counter}][options_string]" %>
+        <%= ff.text_area :options_string, :label => 'Options', :name => "form[#{form_field.kind}][#{counter}][options_string]", :rows => 4 %>
       </div>
     <% end %>
     
