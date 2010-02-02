@@ -26,6 +26,8 @@
         options = field.check_box_group_collection
       end %>
     <% if field.kind == 'radio_button_select' 
+        select_options = {}
+        select_options[:required] = field.required?
         options = field.radio_button_select_collection
       end %>
     <div>
