@@ -37,12 +37,20 @@ module DynamicForms
       
       def radio_button_select(name, full_collection, options={}, &block)
         # iterate through all possible choices
-        radios = full_collection.collect do |item|
+        radios = [] 
+        
+        full_collection.each_with_index do |item, index|
           n = radio_name_for(name)
           id = radio_id_for(name, item)
-          checked = @object.send(name.to_sym) == item
+          if @object.send(name.to_sym) == item
+            checked = true
+          elsif options[:required] && index == 0 && @object.send(name.to_sym).blank?
+            checked = true
+          else
+            checked = false
+          end
           markup = %Q{<input type="radio" id="#{id}" name="#{n}" value="#{item}" #{'checked="checked"' if checked} />}
-          [markup, item]
+          radios << [markup, item]
         end
       
         if block_given?
