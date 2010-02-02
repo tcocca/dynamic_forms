@@ -64,6 +64,8 @@ Add the JS include tag to your layout (relies on Prototype so include the defaul
   * If the field is required, the first field option by position (order) is the first option in list (default)
 * File Field
 * Radio Button Select
+  * If the field is required make the first form_field_option by position (order) selected by default is the form_submission value for that field is blank
+  * If the user chooses a different option and the form submission is invalid the option chose stays selected (this is expected behavior)
 
 === Validations:
 (Field Types applicable in ())
@@ -111,9 +113,6 @@ Add the JS include tag to your layout (relies on Prototype so include the defaul
   * Select: Size (for multiselect)
   * Check Box: Checked? (whether to check the box by default)
   * Check Box Group: Checked? (whether to check the box by default)
-
-* If the Radio Button field is required make the first option by position (order) set as checked by default
-  * if the user selects another option and the form did not pass validation make sure that chosen value is selected (obviously)
 
 * Add a new meta field option to check box fields:  Terms and Conditions
   * Be able to add a Terms and Conditions checkbox above the checkbox, the answer will be the agreement to the terms (checking the box)
