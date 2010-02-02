@@ -1,3 +1,10 @@
+== (02/02/10)
+* Rewrote the forms/form_fields/form_field_options to use accepts_nested_attributes_for (Tom Cocca)
+* Added a default prototype JS file and a helper method to include that file (Tom Cocca)
+  * <%= javascript_include_tag :dynamic_forms_prototype %>
+  * Start to make JS semi-unobtrusive for Adding/Removing the form_fields and form_field_options
+* Added the base for being able to provide meta options per form field, no longer one huge text are for comma separated options (Tom Cocca)
+
 == (01/28/10)
 * Added a confirmed? validation to ensure a checkbox was checked (Tom Cocca)
 * Added a RadioButtonSelect field type (Tom Cocca)

@@ -27,8 +27,19 @@ Install as a plugin:
 Run the generator:
 
   script/generate dynamic_forms
-
 The generator will generate a migration and a bunch of models.  The model files will just have includes to modules that are in the lib directory of the plugin.
+
+Install the public assets (only Prototype JS support for now, soon to add jQuery)
+
+  rake dynamic_forms:install_assets
+
+The rake task will install JS into '/public/javascripts/dynamic_forms/dynamic_forms_prototype.js'.
+Also, the rake task only copies the files if they are not already there, so if you have modified the JS but want the original back you must delete the file and then re-run the rake task
+
+Add the JS include tag to your layout (relies on Prototype so include the defaults):
+
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag :dynamic_forms_prototype %>
 
 == CURRENT FORM OPTIONS
 
@@ -49,6 +60,8 @@ The generator will generate a migration and a bunch of models.  The model files 
 * Check Box
 * Check Box Group
 * Select
+  * If the field is not required then a blank option is added
+  * If the field is required, the first field option by position (order) is the first option in list (default)
 * File Field
 * Radio Button Select
 
@@ -73,12 +86,14 @@ The generator will generate a migration and a bunch of models.  The model files 
 * Shoulda and Cucumber Tests
 
 * Make Javascript Unobtrusive
-  * Default Javascript File
+  * Default Javascript Files
   * Be able to support both Prototype and JQuery
+    * Currently support Prototype only
 
 * Default Stylesheet
 
-* Add a helper method to include the dynamic_forms public assets in the template ( <%= dynamic_forms_includes %> )
+* Add a helper method to include the dynamic_forms public assets in the template
+  * Have stylsheet and JS tags (multiple tags for the different JS lib files)
 
 * More Field Choices
   * Country Select Field (use a plugin => http://github.com/rails/country_select)
@@ -90,13 +105,15 @@ The generator will generate a migration and a bunch of models.  The model files 
 
 * Update the way the routes are generated
 
-* Be able to re-order the form fields
+* Be able to re-order the form fields and form field options
 
 * Be able to set the following field options
-  * Select: Size (for multiselect), Default? (selected value)
+  * Select: Size (for multiselect)
   * Check Box: Checked? (whether to check the box by default)
   * Check Box Group: Checked? (whether to check the box by default)
-  * Radio Button: Default? (which option should be selected by default)
+
+* If the Radio Button field is required make the first option by position (order) set as checked by default
+  * if the user selects another option and the form did not pass validation make sure that chosen value is selected (obviously)
 
 * Add a new meta field option to check box fields:  Terms and Conditions
   * Be able to add a Terms and Conditions checkbox above the checkbox, the answer will be the agreement to the terms (checking the box)
