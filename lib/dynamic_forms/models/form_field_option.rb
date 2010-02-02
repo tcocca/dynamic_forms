@@ -8,6 +8,10 @@ module DynamicForms
         
         model.send(:include, InstanceMethods)
         model.send(:include, Relationships)
+        
+        model.class_eval do
+          before_save :set_value_to_label
+        end
       end
       
       module Relationships
@@ -20,7 +24,10 @@ module DynamicForms
       end
       
       module InstanceMethods
-        
+        # for now, option labels and values will be the same
+        def set_value_to_label
+          self.value = self.label
+        end
       end
       
       module ClassMethods

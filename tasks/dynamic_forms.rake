@@ -18,4 +18,19 @@ namespace :dynamic_forms do
     app_path = File.join(RAILS_ROOT, 'app', 'models')
     remove_files(templates_path, app_path)
   end
+  
+  task :install_assets do
+    RAILS_ROOT = File.join(File.dirname(__FILE__), '..', '..', '..', '..')
+    ASSETS_DIR = File.join(File.dirname(__FILE__), '..', 'public')
+    
+    ['javascripts'].each do |dir|
+      destination  = File.join(RAILS_ROOT, 'public', dir, 'dynamic_forms')
+      FileUtils.mkdir_p(destination) unless File.exists?(destination)
+      Dir.foreach(File.join(ASSETS_DIR, dir)).each do |asset|
+        asset_path = File.join(ASSETS_DIR, dir, asset)
+        asset_dest = File.join(destination, asset)
+        FileUtils.cp(asset_path, asset_dest) unless File.exists?(asset_dest)
+      end
+    end
+  end
 end

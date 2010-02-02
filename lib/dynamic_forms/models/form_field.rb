@@ -18,6 +18,8 @@ module DynamicForms
           
           eval "serialized_validation_attr_accessor #{DynamicForms.configuration.validation_types.collect{|t| ":#{t}"}.join(', ')}"
           
+          accepts_nested_attributes_for :form_field_options, :reject_if => lambda { |a| a[:label].blank? }, :allow_destroy => true
+          
           attr_accessor :answer, :submission
         end
       end
@@ -66,6 +68,16 @@ module DynamicForms
           self.class.to_s.split("::").last.underscore
         end
         
+        # needed for the nested_form
+        # accepts_nested_attributes_for does not set the type correctly on STI and can't mass assign type
+        def sti_type
+          self.type
+        end
+        
+        def sti_type=(sti_type)
+          self.type = sti_type
+        end
+        
         # overridden by has_many_responses
         def has_many_responses?
           false
@@ -74,20 +86,6 @@ module DynamicForms
         # overridden by acts_as_selector
         def is_selector?
           false
-        end
-        
-        # for now, option labels and values will be the same
-        # Displays a comma delimited string of form_field_options for editing
-        def options_string
-          self.form_field_options.map {|ffo| ffo.label}.join(', ')
-        end
-        
-        # for now, option labels and values will be the same
-        # This is a virtual attribute for setting form_field_options with a comma delimited string
-        def options_string=(str)
-          self.form_field_options.delete_all
-          arr = str.split(',')
-          arr.each_with_index {|l, i| self.form_field_options.build(:label => l.strip, :value => l.strip, :position => i)}
         end
         
         #overwritten by self.allow_validation_of

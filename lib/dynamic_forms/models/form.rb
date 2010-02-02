@@ -14,28 +14,12 @@ module DynamicForms
         model.send(:include, Relationships)
         
         model.class_eval do
+          accepts_nested_attributes_for :form_fields, :reject_if => lambda { |a| a[:label].blank? }, :allow_destroy => true
+          
           DynamicForms.configuration.field_types.each do |field_type|
             # create has_many for each field type
-            has_many field_type.pluralize.to_sym, 
-                     :class_name => "::FormField::#{field_type.camelize}"
-            
-            # create setter to receive form data for these type of fields
-            define_method "#{field_type}=" do |fields|
-              removed_fields = send(field_type.pluralize.to_sym).dup
-              fields.each_pair do |key, hash|
-                if hash[:id] && !new_record?
-                  removed_fields.delete_if {|f| f.id == hash[:id].to_i}
-                  item = send(field_type.pluralize.to_sym).find(hash[:id])
-                  item.update_attributes(hash)
-                else
-                  send(field_type.pluralize.to_sym).build(hash)
-                end
-              end
-              send(field_type.pluralize.to_sym).delete(*removed_fields)
-            end
+            has_many field_type.pluralize.to_sym, :class_name => "::FormField::#{field_type.camelize}"
           end
-          
-          alias_method_chain :form_fields, :pre_save_accessibility
         end
       end
       
@@ -67,7 +51,7 @@ module DynamicForms
             
             has_many :form_submissions, 
                      :order => 'created_at DESC', 
-                      :class_name => "::FormSubmission", 
+                     :class_name => "::FormSubmission", 
                      :dependent => :destroy do  
               # Takes the pain out of creating a form submission object!
               # @submission = form.form_submissions.submit(params[:form_submission])
@@ -97,20 +81,6 @@ module DynamicForms
       end
       
       module InstanceMethods
-        # the form_fields association doesn't always load on build, 
-        # so here's a fix...
-        def form_fields_with_pre_save_accessibility
-          orig = self.form_fields_without_pre_save_accessibility
-          if orig.blank?
-            method_names = DynamicForms.configuration.field_types.collect { |t| t.pluralize.to_sym }
-            arr = method_names.inject([]) { |arr, method_name| 
-              arr.concat self.send(method_name) }
-            arr.sort { |a,b| a.position <=> b.position }
-          else
-            orig
-          end
-        end
-        
         def field_keys
           self.form_fields.map(&:name)
         end

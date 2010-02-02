@@ -1,65 +1,73 @@
-<% field = form_field %>
-<% counter ||= form_field_counter - 1 %>
-<% f.fields_for field do |ff| %>
-  <div class="field <%= form_field.kind %>">
-    <h4><%= form_field.kind.titleize %></h4>
-    <%= ff.hidden_field :id,        :name => "form[#{form_field.kind}][#{counter}][id]" unless field.new_record? %>
-    <%= ff.hidden_field :position,  :name => "form[#{form_field.kind}][#{counter}][position]", :class => 'position' %>
-    <div>
-      <label>Label</label>
-      <%= ff.text_field :label,       :name => "form[#{form_field.kind}][#{counter}][label]" %>
-    </div>
+<% field = f.object %>
+<div class="field <%= field.kind %>">
+  <h4><%= field.kind.titleize %></h4>
+  <%= f.hidden_field :sti_type %>
+  <%= f.hidden_field :position, :class => 'field_position' %>
+  
+  <div>
+    <label>Label</label>
+    <%= f.text_field :label %>
+  </div>
+  
+  <% if field.is_selector? %>
+    <% field.form_field_options.build(:position => 1) if field.form_field_options.blank? %>
     
-    <% if field.is_selector? %>
-      <p>Please enter the possible values separated by commas.</p>
-      <div>
-        <%= ff.text_area :options_string, :label => 'Options', :name => "form[#{form_field.kind}][#{counter}][options_string]", :rows => 4 %>
-      </div>
+    <p>Please enter the possible values separated by commas.</p>
+    
+    <div class="form_field_options">
+      <% f.fields_for :form_field_options do |ffo| %>
+        <%= render :partial => 'forms/form_field_option', :locals => {:f => ffo} %>
+      <% end %>
+      
+      <p><%= link_to_add_field_option("Add another option", f, :form_field_options) %></p>
+    </div>
+  <% end %>
+  
+  <div class="validation">
+    <% if field.allow_validation_of? :required %>
+      <%= f.label :required, "Required?" %>&nbsp;
+      <%= f.check_box :required %><br />
+    <% end %>
+    <% if field.allow_validation_of? :email %>
+      <%= f.label :email, "Email?" %>&nbsp;
+      <%= f.check_box :email %><br />
+    <% end %>
+    <% if field.allow_validation_of? :url %>
+      <%= f.label :url, "URL?" %>&nbsp;
+      <%= f.check_box :url %><br />
+    <% end %>
+    <% if field.allow_validation_of? :phone_number %>
+      <%= f.label :phone_types, "Phone Number?" %>&nbsp;
+      <%= f.check_box :phone_number %><br />
+    <% end %>
+    <% if field.allow_validation_of? :zip_code %>
+      <%= f.label :zip_code, "Zip Code?" %>&nbsp;
+      <%= f.check_box :zip_code %><br />
+    <% end %>
+    <% if field.allow_validation_of? :number %>
+      <%= f.label :number, "Number?" %>&nbsp;
+      <%= f.check_box :number %><br />
+    <% end %>
+    <% if field.allow_validation_of? :min_length %>
+      <%= f.label :min_length, "Min Chars?" %>&nbsp;
+      <%= f.text_field :min_length, :size => 3 %><br />
+    <% end %>
+    <% if field.allow_validation_of? :max_length %>
+      <%= f.label :max_length, "Max Chars?" %>&nbsp;
+      <%= f.text_field :max_length, :size => 3 %><br />
+    <% end %>
+    <% if field.allow_validation_of? :confirmed %>
+      <%= f.label :confirmed, "Confirmed?" %>&nbsp;
+      <%= f.check_box :confirmed %><br />
+    <% end %>
+    <% if field.allow_validation_of? :mime_types %>
+      <%= f.label :mime_types, "Mime Types?" %>&nbsp;
+      <%= f.text_field :mime_types %>&nbsp;
+      <span class="helper_text">Separate by comma (leave blank for default mime types)</span><br />
     <% end %>
     
-    <div class="validation">
-      <% if field.allow_validation_of? :required %>
-        <%= ff.label :required, "Required?" %>&nbsp;
-        <%= ff.check_box :required, :name => "form[#{form_field.kind}][#{counter}][required]" %><br />
-      <% end %>
-      <% if field.allow_validation_of? :email %>
-        <%= ff.label :email, "Email?" %>&nbsp;
-        <%= ff.check_box :email, :name => "form[#{form_field.kind}][#{counter}][email]" %><br />
-      <% end %>
-      <% if field.allow_validation_of? :url %>
-        <%= ff.label :url, "URL?" %>&nbsp;
-        <%= ff.check_box :url, :name => "form[#{form_field.kind}][#{counter}][url]" %><br />
-      <% end %>
-      <% if field.allow_validation_of? :phone_number %>
-        <%= ff.label :phone_types, "Phone Number?" %>&nbsp;
-        <%= ff.check_box :phone_number, :name => "form[#{form_field.kind}][#{counter}][phone_number]" %><br />
-      <% end %>
-      <% if field.allow_validation_of? :zip_code %>
-        <%= ff.label :zip_code, "Zip Code?" %>&nbsp;
-        <%= ff.check_box :zip_code, :name => "form[#{form_field.kind}][#{counter}][zip_code]" %><br />
-      <% end %>
-      <% if field.allow_validation_of? :number %>
-        <%= ff.label :number, "Number?" %>&nbsp;
-        <%= ff.check_box :number, :name => "form[#{form_field.kind}][#{counter}][number]" %><br />
-      <% end %>
-      <% if field.allow_validation_of? :min_length %>
-        <%= ff.label :min_length, "Min Chars?" %>&nbsp;
-        <%= ff.text_field :min_length, :name => "form[#{form_field.kind}][#{counter}][min_length]", :size => 3 %><br />
-      <% end %>
-      <% if field.allow_validation_of? :max_length %>
-        <%= ff.label :max_length, "Max Chars?" %>&nbsp;
-        <%= ff.text_field :max_length, :name => "form[#{form_field.kind}][#{counter}][max_length]", :size => 3 %><br />
-      <% end %>
-      <% if field.allow_validation_of? :confirmed %>
-        <%= ff.label :confirmed, "Confirmed?" %>&nbsp;
-        <%= ff.check_box :confirmed, :name => "form[#{form_field.kind}][#{counter}][confirmed]" %><br />
-      <% end %>
-      <% if field.allow_validation_of? :mime_types %>
-        <%= ff.label :mime_types, "Mime Types?" %>&nbsp;
-        <%= ff.text_field :mime_types, :name => "form[#{form_field.kind}][#{counter}][mime_types]" %>&nbsp;
-        <span class="helper_text">Separate by comma (leave blank for default mime types)</span><br />
-      <% end %>
-      <span class="remove_field_link"><%= link_to_function "Remove", "$(this).up('.field').remove(); $('fields_count').value = parseInt($('fields_count').value) - 1;" %></span>
-    </div>
+    <span class="remove_field_link">
+      <%= link_to_remove_field "Remove Field", f %>
+    </span>
   </div>
-<% end %>
+</div>

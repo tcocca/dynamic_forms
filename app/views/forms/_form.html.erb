@@ -41,11 +41,14 @@
       <div class="column" id="left_column">
         <p>Add fields using the links on the right and drag boxes to reorder.</p>
         <div id="form_fields">
-          <%= render :partial => "forms/form_field", :collection => @form.form_fields, :locals => {:f => f} %>
+          <% f.fields_for :form_fields do |ff| %>
+            <%= render :partial => "forms/form_field", :locals => {:f => ff} %>
+          <% end %>
         </div>
       </div>
 
       <script type="text/javascript" charset="utf-8">
+        /*
         function make_form_fields_sortable() {
           Sortable.create("form_fields", {tag: 'div', onChange: function(el) {
             var current_child = $('form_fields').down('div');
@@ -58,26 +61,17 @@
           }});
         }
         make_form_fields_sortable();
+        */
       </script>
     </td>
     <td style="vertical-align: bottom;">
       <div class="column" id="right_column">
-        <%= content_tag(:input, '', :type => 'hidden', :id => 'fields_count', :value => @form.form_fields.length) %>
-
         <div id="add_fields" style="height: 100%;">
           <h4 class="header">Add Another Field...</h4>
           <ul id="add_field_links">
           <% DynamicForms.configuration.field_types.each do |field_type| %>
             <li>
-              <%= link_to_function "Add a #{field_type.titleize}" do |page|
-                  page.insert_html :bottom, 'form_fields', :partial => "forms/form_field", :object => @form.send(field_type.pluralize.to_sym).build, :locals => {:f => f, :counter => ''}
-                  page << "$('form_fields').down('.field', parseInt($('fields_count').value)).select('input').each(function(inp){inp.name = inp.name.split('[]').join('[' + parseInt($('fields_count').value) + ']')})"
-                  page << "$('form_fields').down('.field', parseInt($('fields_count').value)).select('textarea').each(function(inp){inp.name = inp.name.split('[]').join('[' + parseInt($('fields_count').value) + ']')})"
-                  page << "$('form_fields').down('.field', parseInt($('fields_count').value)).down('.position').value = parseInt($('fields_count').value) + 1;"
-                  page << "$('fields_count').value = parseInt($('fields_count').value) + 1;"
-                  page << 'make_form_fields_sortable();'
-                end
-              %>
+              <%= link_to_add_field("Add a #{field_type.titleize}", f, :form_fields, "form_fields", "FormField::#{field_type.camelcase}") %>
             </li>
           <% end %>
           </ul>
