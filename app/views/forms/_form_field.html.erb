@@ -2,7 +2,7 @@
 <% options_id = f.object.new_record? ? 'field_options_new_form_fields' : "field_options_#{f.object.id}" %>
 
 <div class="field <%= field.kind %>">
-  <h4 class="drag_handle"><%= field.kind.titleize %></h4>
+  <h4 class="drag_handle"><%= field.kind.titleize %> <%= image_tag "dynamic_forms/arrow_move.png" %></h4>
   <%= f.hidden_field :sti_type %>
   <%= f.hidden_field :position, :class => 'field_position' %>
   
@@ -14,7 +14,7 @@
   <% if field.is_selector? %>
     <% field.form_field_options.build(:position => 1) if field.form_field_options.blank? %>
     
-    <p>Click on 'Re-Order' text and drag to re-order form fields.</p>
+    <p>Click on arrows and drag to re-order form fields.</p>
     
     <div id="<%= options_id %>" class="form_field_options">
       <% f.fields_for :form_field_options do |ffo| %>

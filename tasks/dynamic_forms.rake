@@ -23,7 +23,7 @@ namespace :dynamic_forms do
     RAILS_ROOT = File.join(File.dirname(__FILE__), '..', '..', '..', '..')
     ASSETS_DIR = File.join(File.dirname(__FILE__), '..', 'public')
     
-    ['javascripts'].each do |dir|
+    ['javascripts', 'images'].each do |dir|
       destination  = File.join(RAILS_ROOT, 'public', dir, 'dynamic_forms')
       FileUtils.mkdir_p(destination) unless File.exists?(destination)
       Dir.foreach(File.join(ASSETS_DIR, dir)).each do |asset|
