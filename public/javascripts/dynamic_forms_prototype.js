@@ -1,5 +1,8 @@
 function add_field(container_id, association, content) {
-  $(container_id).insert(new_content_id(association, content));
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g");
+  
+  $(container_id).insert(content.replace(regexp, new_id));
   
   // Get all the hidden position fields in the div.form_field_options above the link
   // Find the max value
@@ -14,11 +17,19 @@ function add_field(container_id, association, content) {
     max_position = parseInt(max_position) + 1;
     n.value = max_position;
   });
+  
+  make_form_fields_sortable();
+  if($('field_options_' + new_id)) {
+    make_form_field_options_sortable('field_options_' + new_id);
+  }
 }
 
 function add_field_option(link, association, content) {
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g");
+  
   $(link).up().insert({
-    before: new_content_id(association, content)
+    before: content.replace(regexp, new_id)
   });
   
   // Get all the hidden position fields in the div.form_field_options above the link
@@ -32,12 +43,8 @@ function add_field_option(link, association, content) {
     max_position = parseInt(max_position) + 1;
     n.value = max_position;
   });
-}
-
-function new_content_id(association, content) {
-  var new_id = new Date().getTime();
-  var regexp = new RegExp("new_" + association, "g");
-  return content.replace(regexp, new_id);
+  
+  make_form_field_options_sortable(parent_container.identify());
 }
 
 function remove_field(link) {
@@ -78,4 +85,28 @@ function remove_field_option(link) {
       n.value = pos;
     }
   });
+}
+
+function make_form_fields_sortable() {
+  Sortable.create("form_fields", {tag: 'div', handle: 'drag_handle', onChange: function(el) {
+    var current_child = $('form_fields').down('div');
+    var counter = 1;
+    while(current_child) {
+      current_child.down('.field_position').value = counter;
+      current_child = current_child.next('div');
+      counter += 1;
+    };
+  }});
+}
+
+function make_form_field_options_sortable(container_id) {
+  Sortable.create(container_id, {tag: 'div', handle: 'drag_handle', onChange: function(el) {
+    var current_child = $(container_id).down('div');
+    var counter = 1;
+    while(current_child) {
+      current_child.down('.field_option_position').value = counter;
+      current_child = current_child.next('div');
+      counter += 1;
+    };
+  }});
 }

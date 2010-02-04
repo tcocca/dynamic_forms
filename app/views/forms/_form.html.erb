@@ -39,41 +39,24 @@
   <tr>
     <td style="vertical-align: top;">
       <div class="column" id="left_column">
-        <p>Add fields using the links on the right and drag boxes to reorder.</p>
+        <p>Add fields using the links on the right and click and drag Field Type titles to reorder.</p>
         <div id="form_fields">
           <% f.fields_for :form_fields do |ff| %>
             <%= render :partial => "forms/form_field", :locals => {:f => ff} %>
           <% end %>
         </div>
       </div>
-
-      <script type="text/javascript" charset="utf-8">
-        /*
-        function make_form_fields_sortable() {
-          Sortable.create("form_fields", {tag: 'div', onChange: function(el) {
-            var current_child = $('form_fields').down('div');
-            var counter = 1;
-            while(current_child){
-              current_child.down('.position').value = counter;
-              current_child = current_child.next('div');
-              counter += 1;
-            };
-          }});
-        }
-        make_form_fields_sortable();
-        */
-      </script>
     </td>
     <td style="vertical-align: bottom;">
       <div class="column" id="right_column">
         <div id="add_fields" style="height: 100%;">
           <h4 class="header">Add Another Field...</h4>
           <ul id="add_field_links">
-          <% DynamicForms.configuration.field_types.each do |field_type| %>
-            <li>
-              <%= link_to_add_field("Add a #{field_type.titleize}", f, :form_fields, "form_fields", "FormField::#{field_type.camelcase}") %>
-            </li>
-          <% end %>
+            <% DynamicForms.configuration.field_types.each do |field_type| %>
+              <li>
+                <%= link_to_add_field("Add a #{field_type.titleize}", f, :form_fields, "form_fields", "FormField::#{field_type.camelcase}") %>
+              </li>
+            <% end %>
           </ul>
         </div>
       </div>
@@ -81,3 +64,10 @@
     </td>
   </tr>
 </table>
+
+<script type="text/javascript" charset="utf-8">
+  make_form_fields_sortable();
+  $$('.form_field_options').each(function(n) {
+    make_form_field_options_sortable(n.identify());
+  });
+</script>

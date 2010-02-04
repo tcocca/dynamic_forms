@@ -53,6 +53,7 @@ Add the JS include tag to your layout (relies on Prototype so include the defaul
 * On submission the answers are validated
 * File Field uploads are only saved to the file system for a submission that passes validation
 * Ability to see all form submissions with answers
+* Drag and Drop sorting of form fields and form field options
 
 === Field Types:
 * Text Field
@@ -106,8 +107,6 @@ Add the JS include tag to your layout (relies on Prototype so include the defaul
     * I would like to be able to use a nice JS date/time picker but I would need a way to support both Prototype and JQuery
 
 * Update the way the routes are generated
-
-* Be able to re-order the form fields and form field options
 
 * Be able to set the following field options
   * Select: Size (for multiselect)

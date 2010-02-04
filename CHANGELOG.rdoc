@@ -1,3 +1,9 @@
+== (02/03/10)
+* Added the ability to re-order form fields and form field options (Tom Cocca)
+  * This is done using the scriptaculous Sortable Drag and Drop object
+  * For form fields click on the Field Type label
+  * From form field options grab the re-order text
+
 == (02/02/10)
 * Rewrote the forms/form_fields/form_field_options to use accepts_nested_attributes_for (Tom Cocca)
 * Added a default prototype JS file and a helper method to include that file (Tom Cocca)
