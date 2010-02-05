@@ -1,3 +1,8 @@
+== (02/04/10)
+* Added an arrows image to make ordering a little cleaner and easier to understand (Tom Cocca)
+* Removed route hack and added nice draw method (Tom Cocca)
+  * Draw method taken from Thoughtbot's Clearance - thank you Thoughtbot for your great work
+
 == (02/03/10)
 * Added the ability to re-order form fields and form field options (Tom Cocca)
   * This is done using the scriptaculous Sortable Drag and Drop object

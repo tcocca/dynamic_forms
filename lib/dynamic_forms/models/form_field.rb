@@ -11,7 +11,7 @@ module DynamicForms
         model.send(:include, Relationships)
         model.send(:include, Callbacks)
         model.send(:include, Validations)
-        model.send(:include, DynamicForms::Extensions::DynamicValidations)
+        model.send(:include, DynamicForms::DynamicValidations)
         
         model.class_eval do
           serialize :validations, Hash

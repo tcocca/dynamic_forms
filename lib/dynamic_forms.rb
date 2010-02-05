@@ -1,7 +1,6 @@
 require 'dynamic_forms/configuration'
-
-require 'dynamic_forms/extensions/routes'
-require 'dynamic_forms/extensions/dynamic_validations'
+require 'dynamic_forms/routes'
+require 'dynamic_forms/dynamic_validations'
 
 require 'dynamic_forms/models/form'
 require 'dynamic_forms/models/form_field'
