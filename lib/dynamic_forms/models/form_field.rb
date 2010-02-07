@@ -128,10 +128,9 @@ module DynamicForms
                 self.validations[:#{method_name.to_s.gsub('?', '')}] = value
               end
             METHOD
-            class_eval method_declaration
             
             if method_name.to_s.end_with?('?')
-              boolean_method_declaration = <<-METHOD
+              method_declaration += <<-METHOD
                 def #{method_name.to_s}
                   if self.validations
                     validations[:#{method_name.to_s.gsub('?', '')}] && validations[:#{method_name.to_s.gsub('?', '')}] == "1"
@@ -140,8 +139,9 @@ module DynamicForms
                   end
                 end
               METHOD
-              class_eval boolean_method_declaration
             end
+            
+            class_eval method_declaration
           end
         end
       end
