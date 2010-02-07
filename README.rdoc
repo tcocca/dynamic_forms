@@ -1,10 +1,8 @@
 = DynamicForms
 
+Major Updates and refactoring done by Tom Cocca in 2010
 Originally Created by Chris Powers, March 19, 2009
 
-Thanks to Jacob Basham (http://github.com/jkster) for his additions and refactoring.
-
-Updates done by Tom Cocca in 2010
 
 == Make Your Own Forms
 
@@ -12,11 +10,13 @@ The DynamicForms plugin is an engine that allows your users to create their own 
 
 Once you've installed the plugin run the generator and all the files have been copied into your app, feel free to customize as you see fit. Here's a few suggestions:
 
-* You will probably want to add relationships between Forms, FormSubmissions and your user/account model, assuming you want users to has_many :forms and/or has_many :form_submissions
+* You will probably want to add relationships between Forms, FormSubmissions and your creator/submitter models
+  ** See the Section on DynamicForms Relationships
 * You will also probably want to add your login authentication to the FormsController and FormSubmissionsController
 * I tried not to presuppose much in terms of styling, CSS class names, etc., so you will need to significantly alter some of the views to integrate them into your app
 
 For those of you who can make use of this plugin, I hope that this saves you a lot of time!
+
 
 == INSTALLATION
 
@@ -40,6 +40,48 @@ Add the JS include tag to your layout (relies on Prototype so include the defaul
 
   <%= javascript_include_tag :defaults %>
   <%= javascript_include_tag :dynamic_forms_prototype %>
+
+
+== DYNAMIC FORMS RELATIONSHIPS
+
+=== Creator Relationships
+
+To associate a form with its creator add the active record mixin is_form_creator to that model, ex:
+
+  class User < ActiveRecord::Base
+    # other stuff
+    
+    is_form_creator
+    
+    # other stuff
+  end
+
+This adds the following relationship:
+
+  has_many :created_forms, :as => :creator, :class_name => 'Form', :dependent => :nullify
+
+So your user model in this case will have many created_forms and the form belongs to a creator.
+The :creator relationship is a polymorphic relationship so you can have multiple models that have the is_form_creator mixin.
+
+=== Submitter Relationships
+
+To associate a form_submission with its submitter add the AR mixin is_form_submitter to that model, ex:
+
+  class User < ActiveRecord::Base
+    # other stuff
+    
+    is_form_submitter
+    
+    # other stuff
+  end
+
+This adds the following relationship:
+
+  has_many :form_submissions, :as => :submitter, :dependent => :nullify
+
+So your user model in that case with have many form_submissions and the form_submission belongs to a submitter.
+Just like the is_form_creator mixin, this mixin adds a polymorphic relationship so multiple models can have form_submissions.
+
 
 == CURRENT FORM OPTIONS
 
@@ -82,6 +124,7 @@ Add the JS include tag to your layout (relies on Prototype so include the defaul
 * Mime Types (File Field) - if this option is left blank it will use a default set of mime types so there is always validation on a file upload
 * Confirmed (Check Box) - checkbox must be checked, useful for "you agree" type of questions
 
+
 == TODO
 
 * Better Documentation
@@ -118,6 +161,7 @@ Add the JS include tag to your layout (relies on Prototype so include the defaul
 
 * Support internationalization (I18n)
   * Might even make it easier for users to override flash and error messages without having to override modules or classes
+
 
 ==
 

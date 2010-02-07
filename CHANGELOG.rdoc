@@ -1,3 +1,8 @@
+== (02/07/10)
+* Added ActiveRecord mixins for relationships between creator and submitter models (Tom Cocca)
+  * creator:  is_form_create
+  * submitter: is_form_submitter
+
 == (02/04/10)
 * Added an arrows image to make ordering a little cleaner and easier to understand (Tom Cocca)
 * Removed route hack and added nice draw method (Tom Cocca)

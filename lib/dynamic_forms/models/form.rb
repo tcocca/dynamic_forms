@@ -42,7 +42,7 @@ module DynamicForms
       module Relationships
         def self.included(model)
           model.class_eval do
-            belongs_to :formable, :polymorphic => true
+            belongs_to :creator, :polymorphic => true
             
             has_many :form_fields, 
                      :order => 'position ASC', 

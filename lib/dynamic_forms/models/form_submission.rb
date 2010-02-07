@@ -24,6 +24,8 @@ module DynamicForms
             belongs_to :form, 
                        :class_name => "::Form"
             
+            belongs_to :submitter, :polymorphic => true
+            
             has_many :form_fields,
                      :class_name => "::FormField", 
                      :through => :form
