@@ -17,7 +17,7 @@ module DynamicForms
         end
         
         module InstanceMethods
-          def check_box_group_collection
+          def field_helper_select_options
             self.form_field_options.map &:label
           end
         end

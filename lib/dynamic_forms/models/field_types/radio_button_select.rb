@@ -17,7 +17,13 @@ module DynamicForms
         end
         
         module InstanceMethods
-          def radio_button_select_collection
+          def field_helper_options
+            options = super
+            options[:required] = self.required?
+            options
+          end
+          
+          def field_helper_select_options
             self.form_field_options.map &:label
           end
         end
