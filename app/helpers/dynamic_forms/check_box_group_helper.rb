@@ -42,7 +42,7 @@ module DynamicForms
       # 
       def check_box_group(name, full_collection, options={}, &block)
         options[:source] ||= name.to_sym
-      
+        
         # collection of currently 'checked' objects
         obj_collection = case options[:source]
           when Symbol: @object.send(options[:source])
@@ -50,7 +50,7 @@ module DynamicForms
           else []
         end
         obj_collection ||= []
-      
+        
         # iterate through all possible choices
         boxes = full_collection.collect do |item|
           n = name_for(name, '')

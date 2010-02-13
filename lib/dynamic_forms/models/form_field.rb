@@ -93,6 +93,16 @@ module DynamicForms
           false
         end
         
+        def field_helper_options
+          options = {}
+          options[:size] = (!self.max_length.blank? && self.max_length < 50) ? self.max_length : 50
+          options
+        end
+        
+        def field_helper_select_options
+          nil
+        end
+        
         private
         
         def assign_name

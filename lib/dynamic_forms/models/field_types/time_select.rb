@@ -14,6 +14,12 @@ module DynamicForms
         end
         
         module InstanceMethods
+          def field_helper_options
+            options = super
+            options[:prompt] = true
+            options[:ignore_date] = true
+            options
+          end
           
           def validate_time
             if !answer.blank? && !is_valid_time?

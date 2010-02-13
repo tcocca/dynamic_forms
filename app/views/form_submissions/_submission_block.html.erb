@@ -11,35 +11,12 @@
   <% end %>
   <%= f.form_submission_error_messages %>
   <% @form.form_fields.each do |field| %>
-    <% options = {}
-      select_options = nil
-      options[:size] = (!field.max_length.blank? && field.max_length < 50) ? field.max_length : 50
-    %>
-    <% if field.kind == 'select'
-        select_options = options
-        select_options[:include_blank] = true unless field.required?
-        options = field.select_options
-      end %>
-    <% if field.kind == 'check_box_group' 
-        select_options = options
-        select_options[:source] = @form_submission.send(field.name)
-        options = field.check_box_group_collection
-      end %>
-    <% if field.kind == 'radio_button_select' 
-        select_options = {}
-        select_options[:required] = field.required?
-        options = field.radio_button_select_collection
-      end %>
-    <% if field.kind == 'time_select' 
-        options[:prompt] = true
-        options[:ignore_date] = true
-      end %>
     <div>
       <%= f.label field.name, field.label %>
-      <% if select_options %>
-        <%= f.send(field.kind.to_sym, field.name, options, select_options) %>
+      <% unless field.field_helper_select_options.nil? %>
+        <%= f.send(field.kind.to_sym, field.name, field.field_helper_select_options, field.field_helper_options) %>
       <% else %>
-        <%= f.send(field.kind.to_sym, field.name, options) %>
+        <%= f.send(field.kind.to_sym, field.name, field.field_helper_options) %>
       <% end %>
     </div>
   <% end %>

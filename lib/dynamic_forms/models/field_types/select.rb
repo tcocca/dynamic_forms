@@ -16,7 +16,13 @@ module DynamicForms
         end
         
         module InstanceMethods
-          def select_options
+          def field_helper_options
+            options = super
+            options[:include_blank] = true unless self.required?
+            options
+          end
+          
+          def field_helper_select_options
             self.form_field_options.map {|ffo| [ffo.label, ffo.value]}
           end
         end
