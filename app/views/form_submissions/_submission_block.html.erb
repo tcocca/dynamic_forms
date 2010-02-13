@@ -30,6 +30,10 @@
         select_options[:required] = field.required?
         options = field.radio_button_select_collection
       end %>
+    <% if field.kind == 'time_select' 
+        options[:prompt] = true
+        options[:ignore_date] = true
+      end %>
     <div>
       <%= f.label field.name, field.label %>
       <% if select_options %>

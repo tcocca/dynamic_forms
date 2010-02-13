@@ -17,8 +17,8 @@ module DynamicForms
       @no_response = "(no response)"
       @true_value = "Yes"
       @false_value = "No"
-      @field_types = %w{text_field text_area select check_box check_box_group file_field radio_button_select}
-      @validation_types = %w{required? number? max_length min_length zip_code? email? phone_number? url? confirmed? mime_types}
+      @field_types = %w{text_field text_area select check_box check_box_group file_field radio_button_select time_select}
+      @validation_types = %w{required? number? max_length min_length zip_code? email? phone_number? url? confirmed? mime_types time}
       @valid_mime_types = [
         "image/jpg",
         "image/jpeg",
