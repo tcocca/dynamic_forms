@@ -17,6 +17,7 @@ module DynamicForms
           def field_helper_options
             options = super
             options[:prompt] = true
+            options[:twelve_hour] = true
             options
           end
           

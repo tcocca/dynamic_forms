@@ -1,3 +1,9 @@
+== (02/15/10)
+* Made the default hour select use 12 hour time (Tom Cocca)
+  * military time is not user friendly
+  * Uses the format "12 AM" or "12 PM"
+  * the value is the 0-23 hour value
+
 == (02/14/10)
 * Added new field types: TimeSelect, DateSelect and DatetimeSelect (Tom Cocca)
   * Added configuration options to configure the stftime format for each field type for answer display

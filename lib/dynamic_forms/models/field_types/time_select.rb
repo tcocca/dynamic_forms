@@ -18,6 +18,7 @@ module DynamicForms
             options = super
             options[:prompt] = true
             options[:ignore_date] = true
+            options[:twelve_hour] = true
             options
           end
           
