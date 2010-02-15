@@ -1,3 +1,11 @@
+== (02/14/10)
+* Added new field types: TimeSelect, DateSelect and DatetimeSelect (Tom Cocca)
+  * Added configuration options to configure the stftime format for each field type for answer display
+  * Field can require an answer or not
+
+== (02/13/10)
+* Moved the form field helper options logic out of the view and into the models to clean up the view (Tom Cocca)
+
 == (02/07/10)
 * Added ActiveRecord mixins for relationships between creator and submitter models (Tom Cocca)
   * creator:  is_form_create

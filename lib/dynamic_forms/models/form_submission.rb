@@ -12,7 +12,11 @@ module DynamicForms
         model.class_eval do
           serialize :data, Hash
           
+          attr_accessor :datetime_temps
+          
           alias_method_chain :valid?, :dynamic_validation
+          
+          before_validation :set_datetime_values
           
           before_save :save_file_uploads
         end
@@ -36,6 +40,7 @@ module DynamicForms
       module InstanceMethods
         def after_initialize
           self.data ||= {}
+          self.datetime_temps ||= []
         end
         
         def field_keys
@@ -61,6 +66,13 @@ module DynamicForms
         
         private
         
+        def set_datetime_values
+          multi_param_attributes = assign_multiparameter_attributes(datetime_temps)
+          multi_param_attributes.each do |field_name, value|
+            self.data[field_name.to_sym] = value
+          end
+        end
+        
         # After the submission has passed validation, 
         # write files to the filesystem and 
         # set the value for the file_field answer to be the path to the file 
@@ -73,6 +85,38 @@ module DynamicForms
           end
         end
         
+        # Very simplified version of the ActiveRecord::Base method that handles only dates/times
+        def execute_callstack_for_multiparameter_attributes(callstack)
+          attributes = {}
+          callstack.each do |name, values|
+            if values.empty?
+              send(name + '=', nil)
+            else
+              value = case values.size
+                when 2
+                  t = Time.new
+                  no_blank_values?(values) ? Time.local(t.year, t.month, t.day, values[0], values[1], 0, 0) : nil
+                when 5
+                  no_blank_values?(values) ? Time.time_with_datetime_fallback(:local, *values) : nil
+                when 3
+                  no_blank_values?(values) ? Date.new(*values) : nil
+                else 
+                  nil
+              end
+              attributes[name.to_s] = value
+            end
+          end
+          attributes
+        end
+        
+        # Check for any blank values in the array
+        def no_blank_values?(values)
+          values.each do |val|
+            return false if val.blank?
+          end
+          return true
+        end
+        
         # Setup accessor to attach #data[:field_key] to #data.field_key
         # for both setters and getters.
         # --
@@ -81,8 +125,16 @@ module DynamicForms
         def method_missing(method_name, *args, &block)
           name = method_name.to_s
           
-          if field_keys.include? name.gsub(/=/, '')
-            return name.include?("=") ? self.data[name.gsub(/=/, '').to_sym] = args.first : self.data[method_name]
+          if field_keys.include? name.gsub('=', '').gsub(/\(\di\)/, '')
+            if name.include?("=")
+              if name.include?("(")  # if it is a multi_param field (time, datetime, date)
+                datetime_temps << [name.to_s, args.first]
+              else
+                self.data[name.gsub('=', '').to_sym] = args.first
+              end
+            else
+              self.data[method_name]
+            end
           else
             logger.debug("Form is #{self.form.name if self.form} and the fields are #{self.form.form_fields if self.form}")
             super

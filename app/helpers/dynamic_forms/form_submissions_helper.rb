@@ -88,6 +88,12 @@ module DynamicForms
           value_with_download_link(@value)
         elsif @field.is_a? ::FormField::CheckBox
           @value == '1' ? DynamicForms.configuration.true_value : DynamicForms.configuration.false_value
+        elsif @field.is_a? ::FormField::TimeSelect
+          value_with_strftime_format(@value, DynamicForms.configuration.time_select_format)
+        elsif @field.is_a? ::FormField::DateSelect
+          value_with_strftime_format(@value, DynamicForms.configuration.date_select_format)
+        elsif @field.is_a? ::FormField::DatetimeSelect
+          value_with_strftime_format(@value, DynamicForms.configuration.datetime_select_format)
         else
           value_with_blank_notice(@value)
         end
@@ -99,6 +105,10 @@ module DynamicForms
       
       def value_with_download_link(val = nil)
         val.blank? ? DynamicForms.configuration.no_response : "#{format_filename(val)} #{link_to('Download', val, {:target => '_blank'})}"
+      end
+      
+      def value_with_strftime_format(val, strftime_format)
+        val.blank? ? DynamicForms.configuration.no_response : val.strftime(strftime_format)
       end
       
       def format_filename(filename)

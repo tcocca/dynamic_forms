@@ -109,11 +109,14 @@ Just like the is_form_creator mixin, this mixin adds a polymorphic relationship 
 * Radio Button Select
   * If the field is required make the first form_field_option by position (order) selected by default is the form_submission value for that field is blank
   * If the user chooses a different option and the form submission is invalid the option chose stays selected (this is expected behavior)
+* Time Seelct
+* Date Select
+* Datetime Select
 
 === Validations:
 (Field Types applicable in ())
 
-* Required (Text Field, Text Area, File Field, Select, Check Box Group, Radio Button Select)
+* Required (Text Field, Text Area, File Field, Select, Check Box Group, Radio Button Select, Time Select, Date Select, Datetime Select)
 * Phone Number (Text Field)
 * Email Address (Text Field)
 * Zip Code (Text Field)
@@ -123,7 +126,9 @@ Just like the is_form_creator mixin, this mixin adds a polymorphic relationship 
 * Number (Text Field)
 * Mime Types (File Field) - if this option is left blank it will use a default set of mime types so there is always validation on a file upload
 * Confirmed (Check Box) - checkbox must be checked, useful for "you agree" type of questions
-
+* Time (Time Select) - automatically validates to check for a valid time format
+* Date (Date Select) - automatically validates to check for a valid date format
+* Datetime (Datetime Select) - automatically validates to check for a valid datetime format
 
 == TODO
 
@@ -144,10 +149,8 @@ Just like the is_form_creator mixin, this mixin adds a polymorphic relationship 
 * More Field Choices
   * Country Select Field (use a plugin => http://github.com/rails/country_select)
   * US State Select (use a plugin => http://github.com/sprsquish/state_select or http://github.com/jslag/us-state-select-plugin)
-  * Date Field
-  * Time Field
-  * Datetime Field
-    * I would like to be able to use a nice JS date/time picker but I would need a way to support both Prototype and JQuery
+
+* Add a nice JS date/time picker but need a way to support both Prototype and JQuery
 
 * Be able to set the following field options
   * Select: Size (for multiselect)
