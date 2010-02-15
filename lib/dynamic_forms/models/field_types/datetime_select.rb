@@ -28,7 +28,7 @@ module DynamicForms
           
           private
           
-          def is_valid_date?
+          def is_valid_datetime?
             DateTime.parse(answer.to_s)
           end
           
