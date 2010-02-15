@@ -39,4 +39,16 @@ DynamicForms.configure do |config|
   #   "application/x-excel",
   #   "application/x-msexcel"
   # ]
+  
+  # configures the strftime format used to output answers to TimeSelect fields
+  # default shown below (ex: 08:15 AM)
+  # config.time_select_format = "%I:%M %p"
+  
+  # configures the strftime format used to output answes to DateSelect fields
+  # default shown below (ex: February 12, 2010)
+  # config.date_select_format = "%B %d, %Y"
+  
+  # configures the strftime format used to output answes to DatetimeSelect fields
+  # default shown below (ex: February 12, 2010 08:15 AM))
+  # config.datetime_select_format = "%B %d, %Y %I:%M %p"
 end

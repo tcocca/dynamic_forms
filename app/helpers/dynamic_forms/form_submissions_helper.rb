@@ -89,11 +89,11 @@ module DynamicForms
         elsif @field.is_a? ::FormField::CheckBox
           @value == '1' ? DynamicForms.configuration.true_value : DynamicForms.configuration.false_value
         elsif @field.is_a? ::FormField::TimeSelect
-          value_with_strftime_format(@value, "%I:%M %p")
+          value_with_strftime_format(@value, DynamicForms.configuration.time_select_format)
         elsif @field.is_a? ::FormField::DateSelect
-          value_with_strftime_format(@value, "%B %d, %Y")
+          value_with_strftime_format(@value, DynamicForms.configuration.date_select_format)
         elsif @field.is_a? ::FormField::DatetimeSelect
-          value_with_strftime_format(@value, "%B %d, %Y %I:%M %p")
+          value_with_strftime_format(@value, DynamicForms.configuration.datetime_select_format)
         else
           value_with_blank_notice(@value)
         end

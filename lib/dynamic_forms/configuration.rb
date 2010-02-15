@@ -10,7 +10,8 @@ module DynamicForms
   end
 
   class Configuration
-    attr_accessor :mailer_sender, :no_response, :true_value, :false_value, :field_types, :validation_types, :valid_mime_types
+    attr_accessor :mailer_sender, :no_response, :true_value, :false_value, :field_types, :validation_types, :valid_mime_types, 
+                  :time_select_format, :date_select_format, :datetime_select_format
 
     def initialize
       @mailer_sender = 'no-reply@example.com'
@@ -32,6 +33,9 @@ module DynamicForms
         "application/x-excel",
         "application/x-msexcel"
       ]
+      @time_select_format = "%I:%M %p"
+      @date_select_format = "%B %d, %Y"
+      @datetime_select_format = "%B %d, %Y %I:%M %p"
     end
   end
   
