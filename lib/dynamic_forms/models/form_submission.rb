@@ -94,16 +94,12 @@ module DynamicForms
             else
               value = case values.size
                 when 2
-                  unless values[0].blank? || values[1].blank?
-                    t = Time.new
-                    Time.local(t.year, t.month, t.day, values[0], values[1], 0, 0)
-                  else
-                    nil
-                  end
+                  t = Time.new
+                  no_blank_values?(values) ? Time.local(t.year, t.month, t.day, values[0], values[1], 0, 0) : nil
                 when 5
-                  t = Time.time_with_datetime_fallback(:local, *values)
+                  no_blank_values?(values) ? DateTime.new(*values) : nil
                 when 3
-                  Date.new(*values)
+                  no_blank_values?(values) ? Date.new(*values) : nil
                 else 
                   nil
               end
@@ -111,6 +107,14 @@ module DynamicForms
             end
           end
           attributes
+        end
+        
+        # Check for any blank values in the array
+        def no_blank_values?(values)
+          values.each do |val|
+            return false if val.blank?
+          end
+          return true
         end
         
         # Setup accessor to attach #data[:field_key] to #data.field_key
