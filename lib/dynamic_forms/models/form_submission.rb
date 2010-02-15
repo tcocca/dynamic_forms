@@ -97,7 +97,7 @@ module DynamicForms
                   t = Time.new
                   no_blank_values?(values) ? Time.local(t.year, t.month, t.day, values[0], values[1], 0, 0) : nil
                 when 5
-                  no_blank_values?(values) ? DateTime.new(*values) : nil
+                  no_blank_values?(values) ? Time.time_with_datetime_fallback(:local, *values) : nil
                 when 3
                   no_blank_values?(values) ? Date.new(*values) : nil
                 else 
