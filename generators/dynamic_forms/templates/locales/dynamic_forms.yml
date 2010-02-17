@@ -1,8 +1,10 @@
 en:
   dynamic_forms:
-    no_response: (no response)
-    true_value: Yes
-    false_value: No
+    helpers:
+      forms_submissions:
+        no_response: (no response)
+        true_value: Yes
+        false_value: No
     controllers:
       forms:
         form_created: 'The form {{name}} was successfully created.'

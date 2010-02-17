@@ -56,9 +56,9 @@ module DynamicForms
         if @block = block
           to_s # render when block passed in <% ... %> tags
         end
-        @no_response = I18n.t(:no_response, :scope => [:dynamic_forms])
-        @true_value = I18n.t(:true_value, :scope => [:dynamic_forms])
-        @false_value = I18n.t(:false_value, :scope => [:dynamic_forms])
+        @no_response = I18n.t(:no_response, :scope => [:dynamic_forms, :helpers, :forms_submissions])
+        @true_value = I18n.t(:true_value, :scope => [:dynamic_forms, :helpers, :forms_submissions])
+        @false_value = I18n.t(:false_value, :scope => [:dynamic_forms, :helpers, :forms_submissions])
       end
       
       # used to output the generated markup
