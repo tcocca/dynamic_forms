@@ -20,7 +20,7 @@ module DynamicForms
           
           def validate_mime_types
             if !answer.blank? && !is_valid_mime_type?
-              add_error_to_submission(" is an invalid file type.")
+              add_error_to_submission(I18n.t(:file_field_error, :scope => [:dynamic_forms, :validations]))
             end
           end
           

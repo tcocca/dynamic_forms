@@ -15,6 +15,20 @@ en:
     models:
       dynamic_forms_mailer:
         form_submission_subject: 'A new submission for form {{name}} has been submitted'
+    validations:
+      required_error: ' cannot be blank.'
+      number_error: ' must be a number.'
+      min_length_error: ' must be greater than {{min_length}} characters long.'
+      max_length_error: ' must be less than {{max_length}} characters long.'
+      zip_code_error: ' must be a valid zip code.'
+      email_error: ' must be a valid email address.'
+      phone_number_error: ' must be a valid phone number.'
+      url_error: ' must be a valid url.'
+      confirmed_error: ' must be selected.'
+      file_field_error: ' is an invalid file type'
+      time_select_error: ' is an invalid time.'
+      date_select_error: ' is an invalid date.'
+      datetime_select_error: ' is an invalid date & time.'
   time:
     formats:
       time_select: "%I:%M %p"

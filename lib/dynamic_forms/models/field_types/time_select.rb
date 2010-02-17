@@ -24,7 +24,7 @@ module DynamicForms
           
           def validate_time
             if !answer.blank? && !is_valid_time?
-              add_error_to_submission(" is an invalid time.")
+              add_error_to_submission(I18n.t(:time_select_error, :scope => [:dynamic_forms, :validations]))
             end
           end
           

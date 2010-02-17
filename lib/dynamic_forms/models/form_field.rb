@@ -95,7 +95,7 @@ module DynamicForms
         
         def field_helper_options
           options = {}
-          options[:size] = (!self.max_length.blank? && self.max_length < 50) ? self.max_length : 50
+          options[:size] = (!self.max_length.blank? && self.max_length.to_i < 50) ? self.max_length.to_i : 50
           options
         end
         

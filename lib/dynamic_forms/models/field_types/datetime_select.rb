@@ -23,7 +23,7 @@ module DynamicForms
           
           def validate_datetime
             if !answer.blank? && !is_valid_datetime?
-              add_error_to_submission(" is an invalid date & time.")
+              add_error_to_submission(I18n.t(:datetime_select_error, :scope => [:dynamic_forms, :validations]))
             end
           end
           

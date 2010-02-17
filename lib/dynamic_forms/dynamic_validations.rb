@@ -3,55 +3,55 @@ module DynamicForms
       
     def validate_required
       if self.required? && answer.blank?
-        add_error_to_submission(" cannot be blank.")
+        add_error_to_submission(I18n.t(:required_error, :scope => [:dynamic_forms, :validations]))
       end
     end
     
     def validate_number
       if self.number? && !is_number? && !answer.blank?
-        add_error_to_submission(" must be a number.")
+        add_error_to_submission(I18n.t(:number_error, :scope => [:dynamic_forms, :validations]))
       end
     end
     
     def validate_min_length
-      if !self.min_length.blank? && answer.to_s.length < self.min_length
-        add_error_to_submission(" must be greater than #{self.min_length} characters long.")
+      if !self.min_length.blank? && answer.to_s.length < self.min_length.to_i
+        add_error_to_submission(I18n.t(:min_length_error, :scope => [:dynamic_forms, :validations], :min_length => self.min_length))
       end
     end
     
     def validate_max_length
-      if !self.max_length.blank? && answer.to_s.length > self.max_length && !answer.blank?
-        add_error_to_submission(" must be less than #{self.max_length} characters long.")
+      if !self.max_length.blank? && answer.to_s.length > self.max_length.to_i && !answer.blank?
+        add_error_to_submission(I18n.t(:max_length_error, :scope => [:dynamic_forms, :validations], :max_length => self.max_length))
       end
     end
     
     def validate_zip_code
       if self.zip_code? && !is_zip_code? && !answer.blank?
-        add_error_to_submission(" must be a valid zip code.")
+        add_error_to_submission(I18n.t(:zip_code_error, :scope => [:dynamic_forms, :validations]))
       end
     end
     
     def validate_email
       if self.email? && !is_email? && !answer.blank?
-        add_error_to_submission(" must be a valid email address.")
+        add_error_to_submission(I18n.t(:email_error, :scope => [:dynamic_forms, :validations]))
       end
     end
     
     def validate_phone_number
       if self.phone_number? && !is_phone_number? && !answer.blank?
-        add_error_to_submission(" must be a valid phone number.")
+        add_error_to_submission(I18n.t(:phone_number_error, :scope => [:dynamic_forms, :validations]))
       end
     end
     
     def validate_url
       if self.url? && !is_url? && !answer.blank?
-        add_error_to_submission(" must be a valid url.")
+        add_error_to_submission(I18n.t(:url_error, :scope => [:dynamic_forms, :validations]))
       end
     end
     
     def validate_confirmed
       if self.confirmed? && !is_confirmed?
-        add_error_to_submission(" must be selected.")
+        add_error_to_submission(I18n.t(:confirmed_error, :scope => [:dynamic_forms, :validations]))
       end
     end
     
