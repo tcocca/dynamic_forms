@@ -56,6 +56,9 @@ module DynamicForms
         if @block = block
           to_s # render when block passed in <% ... %> tags
         end
+        @no_response = I18n.t(:no_response, :scope => [:dynamic_forms])
+        @true_value = I18n.t(:true_value, :scope => [:dynamic_forms])
+        @false_value = I18n.t(:false_value, :scope => [:dynamic_forms])
       end
       
       # used to output the generated markup
@@ -80,35 +83,35 @@ module DynamicForms
       def formatted_value
         if @field.has_many_responses?
           # ensure value is an array
-          val = @value || DynamicForms.configuration.no_response
+          val = @value || @no_response
           val = [val] unless val.respond_to?('join')
           val = val.join(", ")
           value_with_blank_notice(val)
         elsif @field.is_a? ::FormField::FileField
           value_with_download_link(@value)
         elsif @field.is_a? ::FormField::CheckBox
-          @value == '1' ? DynamicForms.configuration.true_value : DynamicForms.configuration.false_value
+          @value == '1' ? @true_value : @false_value
         elsif @field.is_a? ::FormField::TimeSelect
-          value_with_strftime_format(@value, DynamicForms.configuration.time_select_format)
+          value_with_localized_format(@value, :time_select)
         elsif @field.is_a? ::FormField::DateSelect
-          value_with_strftime_format(@value, DynamicForms.configuration.date_select_format)
+          value_with_localized_format(@value, :date_select)
         elsif @field.is_a? ::FormField::DatetimeSelect
-          value_with_strftime_format(@value, DynamicForms.configuration.datetime_select_format)
+          value_with_localized_format(@value, :datetime_select)
         else
           value_with_blank_notice(@value)
         end
       end
       
       def value_with_blank_notice(val = nil)
-        val.blank? ? DynamicForms.configuration.no_response : val
+        val.blank? ? @no_response : val
       end
       
       def value_with_download_link(val = nil)
-        val.blank? ? DynamicForms.configuration.no_response : "#{format_filename(val)} #{link_to('Download', val, {:target => '_blank'})}"
+        val.blank? ? @no_response : "#{format_filename(val)} #{link_to('Download', val, {:target => '_blank'})}"
       end
       
-      def value_with_strftime_format(val, strftime_format)
-        val.blank? ? DynamicForms.configuration.no_response : val.strftime(strftime_format)
+      def value_with_localized_format(val, localized_format)
+        val.blank? ? @no_response : @template.send(:l, val, :format => localized_format)
       end
       
       def format_filename(filename)

@@ -1,0 +1,12 @@
+en:
+  dynamic_forms:
+    no_response: (no response)
+    true_value: Yes
+    false_value: No
+  time:
+    formats:
+      time_select: "%I:%M %p"
+      datetime_select: "%B %d, %Y %I:%M %p"
+  date:
+    formats:
+      date_select: "%B %d, %Y"

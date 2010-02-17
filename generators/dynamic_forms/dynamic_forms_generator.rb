@@ -7,6 +7,9 @@ class DynamicFormsGenerator < Rails::Generator::Base
       m.directory "config/initializers"
       m.template "initializers/dynamic_forms.rb", "config/initializers/dynamic_forms.rb"
       
+      m.directory "config/locales"
+      m.template "locales/dynamic_forms.yml", "config/locales/dynamic_forms.yml"
+      
       m.insert_into "config/routes.rb", "DynamicForms::Routes.draw(map)"
       
       m.directory "app/models"
