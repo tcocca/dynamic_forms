@@ -12,4 +12,4 @@
   <% end %>
 </p>
 
-<p>Submitted: <%= @form_submission.created_at.strftime('%m/%d/%Y %I:%M %p') %></p>
+<p>Submitted: <%= l @form_submission.created_at, :format => :datetime_select %></p>
