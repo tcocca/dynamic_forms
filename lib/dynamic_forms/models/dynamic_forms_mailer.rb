@@ -12,7 +12,9 @@ module DynamicForms
       
       module InstanceMethods
         def form_submission(form_submission)
-          @subject      = "A new submission for form: #{form_submission.form.name} has been submitted"
+          @subject      = I18n.t(:form_submission_subject, 
+                                 :scope => [:dynamic_forms, :models, :dynamic_forms_mailer], 
+                                 :name => form_submission.form.name)
           @recipients   = form_submission.form.email
           @from         = DynamicForms.configuration.mailer_sender
           @sent_on      = Time.now
