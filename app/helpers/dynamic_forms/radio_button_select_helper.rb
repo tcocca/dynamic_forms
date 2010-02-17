@@ -52,7 +52,7 @@ module DynamicForms
           markup = %Q{<input type="radio" id="#{id}" name="#{n}" value="#{item}" #{'checked="checked"' if checked} />}
           radios << [markup, item]
         end
-      
+        
         if block_given?
           # iterate over custom markup block
           radios.each do |markup, item|
@@ -75,13 +75,12 @@ module DynamicForms
         "#{@object_name}[#{_name}]"
       end
       
-      
       # returns the id attribute for a field by following form_for naming conventions
       def radio_id_for(_name, _item)
         "#{@object_name}_#{_name}_#{_item}"
       end
       
     end
-  
+    
   end
 end
