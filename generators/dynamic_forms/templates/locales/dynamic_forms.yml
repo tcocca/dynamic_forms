@@ -3,6 +3,13 @@ en:
     no_response: (no response)
     true_value: Yes
     false_value: No
+    controllers:
+      forms:
+        form_created: 'The form {{name}} was successfully created.'
+        form_updated: 'The form {{name}} was successfully updated.'
+        form_deleted: 'The form {{name}} was deleted.'
+      form_submissions:
+        submission_created: "Thank you for filling out this form!"
   time:
     formats:
       time_select: "%I:%M %p"

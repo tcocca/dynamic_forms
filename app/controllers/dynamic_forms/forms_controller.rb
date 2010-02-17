@@ -29,7 +29,7 @@ class DynamicForms::FormsController < ApplicationController
     
     @form = ::Form.new(params[:form])
     if @form.save
-      flash[:notice] = %Q{The form "#{@form.name}" was successfully create.}
+      flash[:notice] = translate(:form_created, :scope => [:dynamic_forms, :controllers, :forms], :name => @form.name)
       redirect_to form_path(@form)
     else
       render :action => 'new', :template => "forms/new"
@@ -43,7 +43,7 @@ class DynamicForms::FormsController < ApplicationController
     @form = ::Form.find(params[:id])
     
     if @form.update_attributes(params[:form])
-      flash[:notice] = "The form #{@form.name} was successfully updated."
+      flash[:notice] = translate(:form_updated, :scope => [:dynamic_forms, :controllers, :forms], :name => @form.name)
       redirect_to form_path(@form)
     else
       render :action => 'edit', :template => "forms/edit"
@@ -53,7 +53,7 @@ class DynamicForms::FormsController < ApplicationController
   def destroy
     form = ::Form.find(params[:id])
     form.destroy
-    flash[:notice] = "The form #{form.name} was deleted."
+    flash[:notice] = translate(:form_deleted, :scope => [:dynamic_forms, :controllers, :forms], :name => form.name)
     redirect_to forms_path
   end
   

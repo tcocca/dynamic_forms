@@ -22,7 +22,7 @@ class DynamicForms::FormSubmissionsController < ApplicationController
   def create
     @form_submission = @form.form_submissions.submit(params[:form_submission])
     if !@form_submission.new_record?
-      flash[:notice] = "Thank you for filling out this form!"
+      flash[:notice] = translate(:submission_created, :scope => [:dynamic_forms, :controllers, :form_submissions])
       if @form.email_submissions? && !@form.email.blank?
         ::DynamicFormsMailer.deliver_form_submission(@form_submission)
       end
