@@ -13,19 +13,7 @@
   <% @form.form_fields.each do |field| %>
     <div>
       <%= f.label field.name, field.label %>
-      <% unless field.field_helper_select_options.nil? %>
-        <% if field.respond_to?(:field_helper_html_options) %>
-          <%= f.send(field.kind.to_sym, field.name, field.field_helper_select_options, field.field_helper_options, field.field_helper_html_options) %>
-        <% else %>
-          <%= f.send(field.kind.to_sym, field.name, field.field_helper_select_options, field.field_helper_options) %>
-        <% end %>
-      <% else %>
-        <% if field.respond_to?(:field_helper_html_options) %>
-          <%= f.send(field.kind.to_sym, field.name, field.field_helper_options, field.field_helper_html_options) %>
-        <% else %>
-          <%= f.send(field.kind.to_sym, field.name, field.field_helper_options) %>
-        <% end %>
-      <% end %>
+      <%= display_form_field(f, field) %>
     </div>
   <% end %>
   <div>
