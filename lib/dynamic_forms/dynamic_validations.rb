@@ -55,6 +55,30 @@ module DynamicForms
       end
     end
     
+    def validate_mime_types
+      if !answer.blank? && !is_valid_mime_type?
+        add_error_to_submission(I18n.t(:file_field_error, :scope => [:dynamic_forms, :validations]))
+      end
+    end
+    
+    def validate_date
+      if !answer.blank? && !is_valid_date?
+        add_error_to_submission(I18n.t(:date_select_error, :scope => [:dynamic_forms, :validations]))
+      end
+    end
+    
+    def validate_datetime
+      if !answer.blank? && !is_valid_datetime?
+        add_error_to_submission(I18n.t(:datetime_select_error, :scope => [:dynamic_forms, :validations]))
+      end
+    end
+    
+    def validate_time
+      if !answer.blank? && !is_valid_time?
+        add_error_to_submission(I18n.t(:time_select_error, :scope => [:dynamic_forms, :validations]))
+      end
+    end
+    
     private
     
     def is_number?
@@ -82,8 +106,28 @@ module DynamicForms
       !answer.blank? && answer == "1"
     end
     
+    def is_valid_mime_type?
+      if !mime_types.blank?
+        mime_types.split(',').collect{|mt| mt.strip}.include?(answer.content_type.strip)
+      else
+        DynamicForms.configuration.valid_mime_types.include?(answer.content_type.strip)
+      end
+    end
+    
+    def is_valid_date?
+      Date.parse(answer.to_s)
+    end
+    
+    def is_valid_datetime?
+      DateTime.parse(answer.to_s)
+    end
+    
+    def is_valid_time?
+      Time.parse(answer.to_s)
+    end
+    
     def add_error_to_submission(msg)
-      puts "Adding error #{msg} on #{name}"
+      logger.warn "Adding error #{msg} on #{name}"
       submission.errors.add(name, msg)
     end
     

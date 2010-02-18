@@ -18,12 +18,6 @@ module DynamicForms
         
         module InstanceMethods
           
-          def validate_mime_types
-            if !answer.blank? && !is_valid_mime_type?
-              add_error_to_submission(I18n.t(:file_field_error, :scope => [:dynamic_forms, :validations]))
-            end
-          end
-          
           def process_upload
             unless answer.blank?
               timestamp = Time.now.to_i
@@ -37,14 +31,6 @@ module DynamicForms
           end
           
           private
-          
-          def is_valid_mime_type?
-            if !mime_types.blank?
-              mime_types.split(',').collect{|mt| mt.strip}.include?(answer.content_type.strip)
-            else
-              DynamicForms.configuration.valid_mime_types.include?(answer.content_type.strip)
-            end
-          end
           
           def check_path(timestamp)
             base_dir = RAILS_ROOT + "/public/dynamic_forms"

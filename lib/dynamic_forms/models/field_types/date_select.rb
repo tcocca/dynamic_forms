@@ -19,19 +19,6 @@ module DynamicForms
             options[:prompt] = true
             options
           end
-          
-          def validate_date
-            if !answer.blank? && !is_valid_date?
-              add_error_to_submission(I18n.t(:date_select_error, :scope => [:dynamic_forms, :validations]))
-            end
-          end
-          
-          private
-          
-          def is_valid_date?
-            Date.parse(answer.to_s)
-          end
-          
         end
         
         module ClassMethods
