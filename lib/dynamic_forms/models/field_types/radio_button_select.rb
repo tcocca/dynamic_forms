@@ -5,8 +5,6 @@ module DynamicForms
       module RadioButtonSelect
         
         def self.included(model)
-          model.extend(ClassMethods)
-          
           model.send(:include, InstanceMethods)
           
           model.class_eval do
@@ -26,10 +24,6 @@ module DynamicForms
           def field_helper_select_options
             self.form_field_options.map &:label
           end
-        end
-        
-        module ClassMethods
-          
         end
         
       end

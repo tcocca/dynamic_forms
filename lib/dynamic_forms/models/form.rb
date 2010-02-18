@@ -7,7 +7,6 @@ module DynamicForms
     module Form
       
       def self.included(model)
-        model.extend(ClassMethods)
         model.send(:include, InstanceMethods)
         model.send(:include, Validations)
         model.send(:include, NamedScopes)
@@ -88,10 +87,6 @@ module DynamicForms
         def is_multipart?
           !self.form_fields.detect{|ff| ff.is_a?(::FormField::FileField)}.blank?
         end
-      end
-      
-      module ClassMethods
-        
       end
       
     end

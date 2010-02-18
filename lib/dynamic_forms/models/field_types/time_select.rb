@@ -4,8 +4,6 @@ module DynamicForms
       module TimeSelect
         
         def self.included(model)
-          model.extend(ClassMethods)
-          
           model.send(:include, InstanceMethods)
           
           model.class_eval do
@@ -21,10 +19,6 @@ module DynamicForms
             options[:twelve_hour] = true
             options
           end
-        end
-        
-        module ClassMethods
-          
         end
         
       end

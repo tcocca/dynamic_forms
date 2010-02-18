@@ -5,8 +5,6 @@ module DynamicForms
       module FileField
         
         def self.included(model)
-          model.extend(ClassMethods)
-          
           model.send(:include, InstanceMethods)
           
           model.class_eval do
@@ -51,10 +49,6 @@ module DynamicForms
           def sanitize_filename(filename)
             "#{self.id}_" + filename.strip.gsub(/^.*(\\|\/)/, '').gsub(/[^\w\.\-]/, '_').downcase
           end
-          
-        end
-        
-        module ClassMethods
           
         end
         

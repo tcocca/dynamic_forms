@@ -4,8 +4,6 @@ module DynamicForms
       module DateSelect
         
         def self.included(model)
-          model.extend(ClassMethods)
-          
           model.send(:include, InstanceMethods)
           
           model.class_eval do
@@ -19,10 +17,6 @@ module DynamicForms
             options[:prompt] = true
             options
           end
-        end
-        
-        module ClassMethods
-          
         end
         
       end

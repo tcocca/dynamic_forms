@@ -4,8 +4,6 @@ module DynamicForms
     module FormSubmission
       
       def self.included(model)
-        model.extend(ClassMethods)
-        
         model.send(:include, InstanceMethods)
         model.send(:include, Relationships)
         
@@ -140,10 +138,6 @@ module DynamicForms
             super
           end
         end
-      end
-      
-      module ClassMethods
-        
       end
       
     end

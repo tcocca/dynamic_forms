@@ -4,8 +4,6 @@ module DynamicForms
     module FormFieldOption
       
       def self.included(model)
-        model.extend(ClassMethods)
-        
         model.send(:include, InstanceMethods)
         model.send(:include, Relationships)
         
@@ -28,10 +26,6 @@ module DynamicForms
         def set_value_to_label
           self.value = self.label
         end
-      end
-      
-      module ClassMethods
-        
       end
       
     end
