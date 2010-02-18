@@ -23,6 +23,10 @@ module DynamicForms
           def field_helper_select_options
             self.form_field_options.map {|ffo| [ffo.label, ffo.value]}
           end
+          
+          def field_helper_html_options
+            {}
+          end
         end
         
       end

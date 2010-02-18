@@ -17,6 +17,10 @@ module DynamicForms
             options[:prompt] = true
             options
           end
+          
+          def field_helper_html_options
+            {}
+          end
         end
         
       end
