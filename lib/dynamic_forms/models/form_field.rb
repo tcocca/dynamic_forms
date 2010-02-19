@@ -93,6 +93,10 @@ module DynamicForms
           false
         end
         
+        def has_html_options?
+          self.respond_to?(:field_helper_html_options)
+        end
+        
         def field_helper_options
           options = {}
           options[:size] = (!self.max_length.blank? && self.max_length.to_i < 50) ? self.max_length.to_i : 50

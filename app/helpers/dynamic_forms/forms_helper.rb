@@ -4,13 +4,13 @@ module DynamicForms
     
     def display_form_field(form_builder, field)
       unless field.field_helper_select_options.nil?
-        if field.respond_to?(:field_helper_html_options)
+        if field.has_html_options?
           form_builder.send(field.kind.to_sym, field.name, field.field_helper_select_options, field.field_helper_options, field.field_helper_html_options)
         else
           form_builder.send(field.kind.to_sym, field.name, field.field_helper_select_options, field.field_helper_options)
         end
       else
-        if field.respond_to?(:field_helper_html_options)
+        if field.has_html_options?
           form_builder.send(field.kind.to_sym, field.name, field.field_helper_options, field.field_helper_html_options)
         else
           form_builder.send(field.kind.to_sym, field.name, field.field_helper_options)
