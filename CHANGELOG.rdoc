@@ -1,3 +1,15 @@
+== (02/19/10)
+* Lots of Documentation in the README (Tom Cocca)
+
+== (02/17/10)
+* Added I18n support (Tom Cocca)
+  * Generator creates a default locale file
+* Code Cleanup (Tom Cocca)
+  * Removed unused modules
+  * Moved all validations to the dynamic_validations module
+* Some fields take an optional hash of html options (Tom Cocca)
+  * Added a method to be overridden to add this options
+
 == (02/15/10)
 * Made the default hour select use 12 hour time (Tom Cocca)
   * military time is not user friendly

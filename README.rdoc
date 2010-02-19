@@ -27,19 +27,35 @@ Install as a plugin:
 Run the generator:
 
   script/generate dynamic_forms
-The generator will generate a migration and a bunch of models.  The model files will just have includes to modules that are in the lib directory of the plugin.
+
+The generator will generate a migration,a bunch of models, a default locale file (see internationalization section) and a configuration initializer (see configuration section).  
+The model files will just have includes to modules that are in the lib directory of the plugin.
+The generator also adds a routes definition to the 'config/routes.rb' file as the very top route.  You should see:
+
+  DynamicForms::Routes.draw(map)
+
+See the section on overriding controllers for more info if you need it.
 
 Install the public assets (only Prototype JS support for now, soon to add jQuery)
 
   rake dynamic_forms:install_assets
 
-The rake task will install JS into '/public/javascripts/dynamic_forms/dynamic_forms_prototype.js'.
+The rake task will install JS into 'public/javascripts/dynamic_forms/dynamic_forms_prototype.js' and 1 image for the drag and drop sorting into
+'public/images/dynamic_forms/arrow_move.png'.
+
 Also, the rake task only copies the files if they are not already there, so if you have modified the JS but want the original back you must delete the file and then re-run the rake task
 
 Add the JS include tag to your layout (relies on Prototype so include the defaults):
 
   <%= javascript_include_tag :defaults %>
   <%= javascript_include_tag :dynamic_forms_prototype %>
+
+Finally, the controllers do add some flash messages but I have not put the flash display on the views so you will most likely have it on your layout
+files already or you will want to add it somewhere.  For Example:
+
+  <% flash.each do |key, value| -%>
+    <div id="flash_<%= key %>"><%=h value %></div>
+  <% end -%>
 
 
 == DYNAMIC FORMS RELATIONSHIPS
@@ -130,6 +146,96 @@ Just like the is_form_creator mixin, this mixin adds a polymorphic relationship 
 * Date (Date Select) - automatically validates to check for a valid date format
 * Datetime (Datetime Select) - automatically validates to check for a valid datetime format
 
+
+== INTERNATIONALIZATION
+
+The generator command creates a default locale file at config/locales/dynamic_forms.yml
+
+You can modify the file to you liking and add additional language support.
+
+Not only does this add the benefit of supporting internationalization but it also makes it much easier to change the default values for
+flash messages and validations, etc ...
+
+
+== CONFIGURATION
+
+The generator creates a config initializer at config/initializers/dynamic_forms.rb that contains documentation on all the options with the default values
+
+There are 4 configuration options
+
+mailer_sender:  the email address that the email notifications come from
+
+field_types: the field types that your users can choose from, defaults to all available fields.  If you want to add a new field type or remove a field type just edit this array
+
+validation_types:  the available validations, defaults to all available.  The remove options or add a new custom validation just edit the array.
+
+valid_mime_types:  for file fields this is the default list of mimetypes that are valid.  These can be customized on a per field basis or edit the default array.
+
+
+== OVERIDING FUNCTIONALITY
+
+=== Controllers
+
+The generator added a routes definition:
+
+  DynamicForms::Routes.draw(map)
+
+which defines the following:
+
+  map.resources :forms, :controller => 'dynamic_forms/forms' do |forms|
+    forms.resources :form_submissions,
+      :controller => "dynamic_forms/form_submissions",
+      :only => [:index, :show, :new, :create]
+  end
+
+You can see that the controllers are in the DynamicForms namespace.  This means overriding them is pretty easy.  
+All you need to do is create a new controller that is a subclass of a DyanmicForms controller.  For Example:
+
+  class FormsController < DynamicForms::FormsController
+    def new
+      @form = ::Form.new(:submit_label => 'Submit')
+      @form.creator = current_user #set the creator of the form
+      render :template => "forms/new"
+    end
+  end
+
+And then you must add a new route definition above the dyanmic forms generated route in your routes file as any routes defined first take precedence.
+  
+  map.resources :forms, :controller => 'forms'
+  DynamicForms::Routes.draw(map)
+
+You will most likely be doing this controller overriding so that you can set creator and submitter values for forms and form_submissions
+(see the section on relationships) as I have not presupposed any of this functionality, I have made it easier though with polymorphic associations 
+so you can you any models you would like.
+The good news is that you only need to have the actions that you need to override in your subclassed controller.
+
+
+=== Views
+
+To change the views (which will need to happen in almost every case), 
+just copy the view folder that you want out of vendor/plugins/dyamic_forms/app/views and put it in app/views.
+
+You don't have to change every view either, you could only copy the views that you plan on changing.
+
+* Eventually I will build a generator to do the copying of the views directory for you, this is on the roadmap, just not done yet.
+
+
+=== Models
+
+The models that are generated have all of the functionality included in through a module.  
+This means that to change functionality should just be a matter of overriding that method in the generated model file.
+For example, if you always want to include a blank option on a select no matter if the field is required or not you could do the following:
+
+  class FormField::Select < FormField
+    include DynamicForms::Models::FieldTypes::Select
+    
+    def field_helper_options
+      {:include_blank => true}
+    end
+    
+  end
+
+
 == TODO
 
 * Better Documentation
@@ -162,9 +268,8 @@ Just like the is_form_creator mixin, this mixin adds a polymorphic relationship 
   * The Terms and Conditions will be in a READ ONLY text area field with the checkbox below
   * use the new confirmed? validation to make people agree to the terms
 
-* Support internationalization (I18n)
-  * Might even make it easier for users to override flash and error messages without having to override modules or classes
 
+* Views copy generator
 
 ==
 
