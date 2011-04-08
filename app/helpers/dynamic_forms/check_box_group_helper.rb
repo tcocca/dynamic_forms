@@ -45,8 +45,8 @@ module DynamicForms
         
         # collection of currently 'checked' objects
         obj_collection = case options[:source]
-          when Symbol: @object.send(options[:source])
-          when Array: options[:source]
+          when Symbol then @object.send(options[:source])
+          when Array then options[:source]
           else []
         end
         obj_collection ||= []

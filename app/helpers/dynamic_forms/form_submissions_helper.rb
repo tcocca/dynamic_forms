@@ -66,7 +66,7 @@ module DynamicForms
         label = @field.label
         val = @field.is_a?(::FormField::FileField) ? formatted_value : @template.send(:h, formatted_value)
         if @block
-          @template.concat(@template.capture(label, val, &@block), @block.binding)
+          @template.concat(@template.capture(label, val, &@block))
         else
           <<-EOF
             <div class="form_submission_field_display">

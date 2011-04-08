@@ -9,7 +9,6 @@ module DynamicForms
         
         model.class_eval do
           serialize :data, Hash
-          
           attr_accessor :datetime_temps
           
           alias_method_chain :valid?, :dynamic_validation
@@ -36,16 +35,26 @@ module DynamicForms
       end
       
       module InstanceMethods
+        
+        def before_create
+          @initialized = false
+        end
+        
         def after_initialize
+          @initialized = true
           self.data ||= {}
           self.datetime_temps ||= []
+        end
+        
+        def initialized?
+          return @initialized
         end
         
         def field_keys
           self.form ? self.form.form_fields.map(&:name) : []
         end
         
-        def valid_with_dynamic_validation?
+        def valid_with_dynamic_validation?(options)
           valid_without_dynamic_validation?
           self.form.form_fields.each { |ff| ff.validate_submission(self) }
           return self.errors.blank?
@@ -121,7 +130,14 @@ module DynamicForms
         # Author:: Jacob Basham & Chris Powers, Killswitch Collective
         # ++
         def method_missing(method_name, *args, &block)
+          
+          if (!(self.initialized?))
+            self.after_initialize
+          end
+          
           name = method_name.to_s
+          
+          logger.debug("Form is #{self.form.name if self.form} and the fields are #{self.form.form_fields if self.form}")
           
           if field_keys.include? name.gsub('=', '').gsub(/\(\di\)/, '')
             if name.include?("=")
@@ -131,6 +147,7 @@ module DynamicForms
                 self.data[name.gsub('=', '').to_sym] = args.first
               end
             else
+              logger.debug("Looking for data #{method_name} in #{self.data if self.data}")
               self.data[method_name]
             end
           else

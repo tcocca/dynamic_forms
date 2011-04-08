@@ -1,7 +1,6 @@
 require 'twelve_hour_time_helper'
 
 require 'dynamic_forms/configuration'
-require 'dynamic_forms/routes'
 require 'dynamic_forms/dynamic_validations'
 require 'dynamic_forms/relationships'
 

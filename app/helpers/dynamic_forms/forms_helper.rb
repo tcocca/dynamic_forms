@@ -13,7 +13,7 @@ module DynamicForms
         if field.has_html_options?
           form_builder.send(field.kind.to_sym, field.name, field.field_helper_options, field.field_helper_html_options)
         else
-          form_builder.send(field.kind.to_sym, field.name, field.field_helper_options)
+          return form_builder.send(field.kind.to_sym, field.name, field.field_helper_options)
         end
       end
     end
@@ -27,7 +27,7 @@ module DynamicForms
       fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
         render :partial => "forms/#{association.to_s.singularize}", :locals => {:f => builder} 
       end
-      link_to_function(name, h("add_field(\"#{conatiner_id}\", \"#{association}\", \"#{escape_javascript(fields)}\")"))
+      link_to_function(name, h("add_field(\"#{conatiner_id}\", \"#{association}\", \"#{escape_javascript(fields)}\")".html_safe))
     end
     
     def link_to_add_field_option(name, f, association)

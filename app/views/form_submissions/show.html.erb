@@ -1,9 +1,14 @@
 <h2><%= @form.name %></h2>
 
 <% if @submitted && !@form.confirmation.blank? %>
-  <%= simple_format(@form.confirmation) %>
+  <%= simple_format(@form.confirmation).html_safe %>
 <% end %>
 
 <% @form_submission.each_field do |field, value| %>
-  <%= format_submission_field(field, value) %>
+  <% format_submission_field(field, value) do |label, val| %>
+    <div class="form_submission_field_display">
+      <strong class="label"><%= label %>:</strong>
+      <span class="response"><%= val %></span>
+    </div>
+  <% end %>
 <% end %>

@@ -15,6 +15,7 @@ module DynamicForms
         model.class_eval do
           accepts_nested_attributes_for :form_fields, :reject_if => lambda { |a| a[:label].blank? }, :allow_destroy => true
           
+          DynamicForms.configure
           DynamicForms.configuration.field_types.each do |field_type|
             # create has_many for each field type
             has_many field_type.pluralize.to_sym, :class_name => "::FormField::#{field_type.camelize}"
