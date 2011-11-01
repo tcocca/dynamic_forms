@@ -34,7 +34,7 @@ module DynamicForms
       module NamedScopes
         def self.included(model)
           model.class_eval do
-            named_scope :active, :conditions => ["active = ?", true]
+            scope :active, :conditions => ["active = ?", true]
           end
         end
       end

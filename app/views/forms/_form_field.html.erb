@@ -17,7 +17,7 @@
     <p>Click on arrows and drag to re-order form fields.</p>
     
     <div id="<%= options_id %>" class="form_field_options">
-      <% f.fields_for :form_field_options do |ffo| %>
+      <%= f.fields_for :form_field_options do |ffo| %>
         <%= render :partial => 'forms/form_field_option', :locals => {:f => ffo} %>
       <% end %>
       

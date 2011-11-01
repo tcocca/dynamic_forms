@@ -23,7 +23,7 @@ module DynamicForms
           part :content_type => "text/html", :body => render_message("form_submission", :form_submission => form_submission)
           
           form_submission.each_field do |field, value|
-            if field.is_a?(::FormField::FileField) && !value.blank? && file = File.read(File.join(RAILS_ROOT, 'public', value))
+            if field.is_a?(::FormField::FileField) && !value.blank? && file = File.read(File.join(Rails.root, 'public', value))
               attachment "application/octet-stream" do |a|
                 a.body = file
                 a.filename = value.split('/').last.to_s

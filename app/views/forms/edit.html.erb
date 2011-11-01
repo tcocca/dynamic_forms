@@ -5,7 +5,7 @@
 
 <h2>Edit <%=@form.name %> Form</h2>
 
-<% form_for :form, @form, :url => form_path(@form), :html => {:method => :put, :id => "form_creator"} do |f| %>
+<%= form_for :form, @form, :url => form_path(@form), :html => {:method => :put, :id => "form_creator"} do |f| %>
   <fieldset id="form">
     <%= render :partial => 'forms/form', :object => f %>
     <div class="form_item submit">

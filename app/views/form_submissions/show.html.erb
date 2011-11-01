@@ -5,10 +5,5 @@
 <% end %>
 
 <% @form_submission.each_field do |field, value| %>
-  <% format_submission_field(field, value) do |label, val| %>
-    <div class="form_submission_field_display">
-      <strong class="label"><%= label %>:</strong>
-      <span class="response"><%= val %></span>
-    </div>
-  <% end %>
+  <%= format_submission_field(field, value) %>
 <% end %>

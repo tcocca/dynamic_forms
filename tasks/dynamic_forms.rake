@@ -11,20 +11,19 @@ namespace :dynamic_forms do
   end
   
   task :uninstall do 
-    RAILS_ROOT = File.join(File.dirname(__FILE__), '..', '..', '..', '..')
+    Rails.root = File.join(File.dirname(__FILE__), '..', '..', '..', '..')
     
     # delete the generated models
     templates_path = File.join(File.dirname(__FILE__), '..', 'generators', 'dynamic_forms', 'templates', 'models')
-    app_path = File.join(RAILS_ROOT, 'app', 'models')
+    app_path = File.join(Rails.root, 'app', 'models')
     remove_files(templates_path, app_path)
   end
   
   task :install_assets do
-    RAILS_ROOT = File.join(File.dirname(__FILE__), '..', '..', '..', '..')
     ASSETS_DIR = File.join(File.dirname(__FILE__), '..', 'public')
     
     ['javascripts', 'images'].each do |dir|
-      destination  = File.join(RAILS_ROOT, 'public', dir, 'dynamic_forms')
+      destination  = File.join(Rails.root, 'public', dir, 'dynamic_forms')
       FileUtils.mkdir_p(destination) unless File.exists?(destination)
       Dir.foreach(File.join(ASSETS_DIR, dir)).each do |asset|
         asset_path = File.join(ASSETS_DIR, dir, asset)

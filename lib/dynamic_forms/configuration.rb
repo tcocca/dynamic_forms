@@ -6,7 +6,6 @@ module DynamicForms
   
   def self.configure
     self.configuration ||= Configuration.new
-    #yield(configuration)
   end
   
   class Configuration

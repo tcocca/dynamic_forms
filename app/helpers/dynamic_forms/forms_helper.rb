@@ -5,13 +5,13 @@ module DynamicForms
     def display_form_field(form_builder, field)
       unless field.field_helper_select_options.nil?
         if field.has_html_options?
-          form_builder.send(field.kind.to_sym, field.name, field.field_helper_select_options, field.field_helper_options, field.field_helper_html_options)
+          return form_builder.send(field.kind.to_sym, field.name, field.field_helper_select_options, field.field_helper_options, field.field_helper_html_options)
         else
-          form_builder.send(field.kind.to_sym, field.name, field.field_helper_select_options, field.field_helper_options)
+          return form_builder.send(field.kind.to_sym, field.name, field.field_helper_select_options, field.field_helper_options)
         end
       else
         if field.has_html_options?
-          form_builder.send(field.kind.to_sym, field.name, field.field_helper_options, field.field_helper_html_options)
+          return form_builder.send(field.kind.to_sym, field.name, field.field_helper_options, field.field_helper_html_options)
         else
           return form_builder.send(field.kind.to_sym, field.name, field.field_helper_options)
         end
@@ -35,7 +35,7 @@ module DynamicForms
       fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
         render :partial => "forms/#{association.to_s.singularize}", :locals => {:f => builder} 
       end
-      link_to_function(name, h("add_field_option(this, \"#{association}\", \"#{escape_javascript(fields)}\")"))
+      link_to_function(name, h("add_field_option(this, \"#{association}\", \"#{escape_javascript(fields)}\")".html_safe))
     end
     
     def link_to_remove_field(name, f)

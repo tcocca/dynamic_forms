@@ -31,7 +31,7 @@ module DynamicForms
           private
           
           def check_path(timestamp)
-            base_dir = RAILS_ROOT + "/public/dynamic_forms"
+            base_dir = Rails.root + "/public/dynamic_forms"
             Dir.mkdir(base_dir, 0775) unless File.exists?(base_dir)
             forms_dir = base_dir + "/#{self.form_id}"
             Dir.mkdir(forms_dir, 0775) unless File.exists?(forms_dir)

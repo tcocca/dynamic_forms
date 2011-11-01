@@ -41,7 +41,7 @@
       <div class="column" id="left_column">
         <p>Add fields using the links on the right and click and drag the arrows next to the field type titles to reorder.</p>
         <div id="form_fields">
-          <% f.fields_for :form_fields do |ff| %>
+          <%= f.fields_for :form_fields do |ff| %>
             <%= render :partial => "forms/form_field", :locals => {:f => ff} %>
           <% end %>
         </div>
