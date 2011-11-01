@@ -68,12 +68,11 @@ module DynamicForms
         if @block
           @template.capture(label, val, &@block)
         else
-          <<-EOF
-            <div class="form_submission_field_display">
-              <strong class="label">#{label}:</strong>
-              <span class="response">#{val}</span>
-            </div>
-          EOF
+          html = "<div class='form_submission_field_display'>"
+          html += "<strong class='label'>#{label}:</strong>"
+          html += "<span class='response'>#{val}</span>"
+          html += "</div>"
+          html.html_safe
         end
       end
       
