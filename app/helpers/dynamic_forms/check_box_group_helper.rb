@@ -68,12 +68,12 @@ module DynamicForms
         else
           # output list of checkboxes
           out = []
-          out << "<ul class='check_box_group'>\n"
+          out << "<ul class='check_box_group'>"
           boxes.each do |markup, item|
             out << "<li>#{markup}<label for='#{id_for(name, item)}'>#{item}</label></li>\n"
           end
-          out << "</ul>\n<div class='clearer'></div>\n"
-          out
+          out << "</ul><div class='clearer'></div>"
+          out.join.html_safe
         end
       end
     

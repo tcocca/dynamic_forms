@@ -64,7 +64,7 @@ module DynamicForms
           radios.each do |markup, item|
             out += "#{markup}&nbsp;<label for='#{radio_id_for(name, item)}'>#{item}</label>&nbsp;&nbsp;"
           end
-          out
+          out.html_safe
         end
       end
       
