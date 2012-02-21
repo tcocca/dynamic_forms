@@ -125,7 +125,7 @@ Just like the is_form_creator mixin, this mixin adds a polymorphic relationship 
 * Radio Button Select
   * If the field is required make the first form_field_option by position (order) selected by default is the form_submission value for that field is blank
   * If the user chooses a different option and the form submission is invalid the option chose stays selected (this is expected behavior)
-* Time Seelct
+* Time Select
 * Date Select
 * Datetime Select
 
@@ -172,7 +172,7 @@ validation_types:  the available validations, defaults to all available.  The re
 valid_mime_types:  for file fields this is the default list of mimetypes that are valid.  These can be customized on a per field basis or edit the default array.
 
 
-== OVERIDING FUNCTIONALITY
+== OVERRIDING FUNCTIONALITY
 
 === Controllers
 
@@ -189,7 +189,7 @@ which defines the following:
   end
 
 You can see that the controllers are in the DynamicForms namespace.  This means overriding them is pretty easy.  
-All you need to do is create a new controller that is a subclass of a DyanmicForms controller.  For Example:
+All you need to do is create a new controller that is a subclass of a DynamicForms controller.  For Example:
 
   class FormsController < DynamicForms::FormsController
     def new
@@ -199,7 +199,7 @@ All you need to do is create a new controller that is a subclass of a DyanmicFor
     end
   end
 
-And then you must add a new route definition above the dyanmic forms generated route in your routes file as any routes defined first take precedence.
+And then you must add a new route definition above the dynamic forms generated route in your routes file as any routes defined first take precedence.
   
   map.resources :forms, :controller => 'forms'
   DynamicForms::Routes.draw(map)
@@ -213,7 +213,7 @@ The good news is that you only need to have the actions that you need to overrid
 === Views
 
 To change the views (which will need to happen in almost every case), 
-just copy the view folder that you want out of vendor/plugins/dyamic_forms/app/views and put it in app/views.
+just copy the view folder that you want out of vendor/plugins/dynamic_forms/app/views and put it in app/views.
 
 You don't have to change every view either, you could only copy the views that you plan on changing.
 
@@ -250,7 +250,7 @@ For example, if you always want to include a blank option on a select no matter 
 * Default Stylesheet
 
 * Add a helper method to include the dynamic_forms public assets in the template
-  * Have stylsheet and JS tags (multiple tags for the different JS lib files)
+  * Have stylesheet and JS tags (multiple tags for the different JS lib files)
 
 * More Field Choices
   * Country Select Field (use a plugin => http://github.com/rails/country_select)
@@ -259,7 +259,7 @@ For example, if you always want to include a blank option on a select no matter 
 * Add a nice JS date/time picker but need a way to support both Prototype and JQuery
 
 * Be able to set the following field options
-  * Select: Size (for multiselect)
+  * Select: Size (for multi-select)
   * Check Box: Checked? (whether to check the box by default)
   * Check Box Group: Checked? (whether to check the box by default)
 
