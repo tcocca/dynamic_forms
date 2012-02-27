@@ -110,7 +110,7 @@ module DynamicForms
         private
         
         def assign_name
-          self.name = "field_" + Digest::SHA1.hexdigest(self.label + Time.now.to_s).first(20) if self.name.blank?
+          self.name = "field_" + Digest::SHA1.hexdigest(self.label + self.position.to_s + Time.now.to_s).first(20) if self.name.blank?
         end
       end
       
