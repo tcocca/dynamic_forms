@@ -52,12 +52,12 @@ function remove_field(link) {
   $(link).up('.field').hide();
   
   // Get the position element for the field that is being removed and get the value
-  // Remove the position element from the DOM
+  // Set the value of the position element to an empty string
   // Get the parent container of the form field
   // Cycle through the the hidden position elements and if the value is greater than the value that was removed, decrement by 1
   var position = $(link).up('.field').getElementsBySelector('.field_position').first();
   var position_value = position.value;
-  position.remove();
+  position.value = "";
   var parent_container = $('form_fields');
   parent_container.getElementsBySelector(".field_position").each(function(n) {
     if(parseInt(n.value) > position_value) {
@@ -72,12 +72,12 @@ function remove_field_option(link) {
   $(link).up('.option').hide();
   
   // Get the position element for the option that is being removed and get the value
-  // Remove the position element from the DOM
+  // Set the value of the position element to an empty string
   // Get the parent container of the form field options
   // Cycle through the the hidden position elements and if the value is greater than the value that was removed, decrement by 1
   var position = $(link).up().previous("input[type=hidden]");
   var position_value = position.value;
-  position.remove();
+  position.value = "";
   var parent_container = $(link).up(".form_field_options");
   parent_container.getElementsBySelector(".field_option_position").each(function(n) {
     if(parseInt(n.value) > position_value) {
